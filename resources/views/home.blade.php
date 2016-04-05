@@ -74,17 +74,35 @@ CodeMirror.on(modeInput, "keypress", function(e) {
 
 $('select[name="theme"]').change(function(){
 	editor.setOption("theme", $(this).val() );
+
+	Load({
+		Type: 'POST',
+		navAjax: false,
+		Url: '/{{ $hash }}/save/theme',
+		Data: {
+			theme: $(this).val()
+		}
+	});
 });
 
 $('select[name="syntax"]').change(function(){
 	$('#mode').val( $(this).val() );
 	change();
+
+	Load({
+		Type: 'POST',
+		navAjax: false,
+		Url: '/{{ $hash }}/save/syntax',
+		Data: {
+			syntax: $(this).val()
+		}
+	});
 });
 
 $(document).ready(function(){
 
-	$('[name="syntax"] option[value="php"]').prop('selected', true).change();
-	$('[name="theme"] option[value="railscasts"]').prop('selected', true).change();
+	$('[name="syntax"] option[value="{{ $code->syntax }}"]').prop('selected', true).change();
+	$('[name="theme"] option[value="{{ $code->theme }}"]').prop('selected', true).change();
 
 	$('select').material_select();
 });

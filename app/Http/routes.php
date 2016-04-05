@@ -10,14 +10,19 @@
 |
 */
 
-$app->get('/', function () {
-	
-	$hash = hash('crc32b', time() );
+$app->get('/', function () use ($app) {	
 
-	if (! isset( $_COOKIE['hash'] ) ) {
+	if (! isset( $_COOKIE['hash'] ) || $_COOKIE['hash'] == '' ) {
+
+		$hash = hash('crc32b', time() );
 
 		setcookie('hash', $hash);
 		$_COOKIE['hash'] = $hash;
+
+		$query = app('db')->insert( " INSERT INTO codes ( hash ) VALUES ( '" . $hash . "' ) " );
+	} else {
+
+		$hash = $_COOKIE['hash'];
 	}
 
     return redirect('/' . $hash);
@@ -25,5 +30,9 @@ $app->get('/', function () {
 
 $app->get('/{hash}', function ( $hash ) use ($app) {
 
-    return view('/home', ['hash' => $hash]);
+	$code = $query = app('db')->select( " SELECT * FROM codes WHERE hash = '" . $hash . "' LIMIT 1 " );
+    return view('/home', ['hash' => $hash, 'code' => $code[0]]);
 });
+
+$app->post('/{hash}/save/theme', 'CodeController@saveTheme');
+$app->post('/{hash}/save/syntax', 'CodeController@saveSyntax');
