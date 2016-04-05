@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CodeController extends Controller
 {
     /**
      * Retrieve the user for the given ID.
@@ -12,7 +12,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function saveTheme(Request $request, $hash)
     {
+    	$query = app('db')->update( " UPDATE codes SET theme = '" . $request->theme . "' WHERE hash = '" . $hash . "' " );
+    }
+
+    public function saveSyntax(Request $request, $hash)
+    {
+    	$query = app('db')->update( " UPDATE codes SET syntax = '" . $request->syntax . "' WHERE hash = '" . $hash . "' " );
     }
 }
