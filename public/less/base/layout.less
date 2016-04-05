@@ -1,0 +1,143 @@
+@import 'fonts.less';
+@import 'variables.less';
+@import 'functions.less';
+@import 'buttons.less';
+@import 'form.less';
+@import 'grid.less';
+
+body {
+	background-color: @PomegranateColor;
+	color: #333;
+	font-family: @DefaultFont;
+	overflow: hidden;
+}
+
+@import '../modules/menus.less';
+
+#Loader {
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	display: none;
+	z-index: 9999;
+}
+
+.content {
+
+}
+
+.modal.small {
+	width: 25%;
+	height: 25%;
+}
+
+.modal.medium {
+	width: 35%;
+	height: 50%;
+}
+
+.modal {
+
+	.modal-header {
+		/*display: inline-block;*/
+		/*width: 100%;*/
+		/*background-color: #fff;*/
+		/*box-shadow: 0 0 5px #ccc;*/
+	}
+
+	a.modal-close {
+		float: right;
+		color: @PomegranateColor;
+		padding: 5px;
+
+		/*i {*/
+			position: fixed;
+			top: 0;
+			right: 10px;
+			cursor: pointer;
+			z-index: 1005;
+		/*}*/
+	}
+}
+
+.description {
+	border-radius: 2px;
+	font-size: 18px;
+	font-weight: 300;
+	padding: 5px;
+}
+
+.description.true {
+	border-left: 3px solid @DefaultColor;
+	background-color: @DefaultColorHover;
+	color: #fff;
+	margin: 5px 0;
+}
+
+.ml {
+	margin-left: 10px !important;
+}
+
+.mr {
+	margin-right: 10px !important;
+}
+
+.mt {
+	margin-top: 10px !important;
+}
+
+.mb {
+	margin-bottom: 10px !important;
+}
+
+ul.menu-top {
+
+	.logo {
+		float: left;
+		color: #fff;
+		font-size: 32px;
+		font-weight: 300;
+	}
+
+	padding: 0;
+	margin: 0;
+	background-color: @PomegranateColorHover;
+	color: #fff;
+	height: 5%;
+
+	.select-wrapper {
+
+		.caret {
+			color: #fff;
+		}
+
+		input {
+			margin: 0;
+			padding: 0 5px;
+			text-transform: uppercase !important;
+		}
+
+		ul {
+
+			li span {
+
+				color: @PomegranateColor;
+			}
+		}
+	}
+
+	.select-wrapper:hover {
+		background-color: @PomegranateColor;
+	}
+
+	li {
+		width: 200px;
+		float: right;
+		margin: 0 10px;
+	}
+}
+
+.CodeMirror {
+	height: 95% !important;
+	width: 100%;
+}

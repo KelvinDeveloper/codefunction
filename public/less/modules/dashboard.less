@@ -1,0 +1,370 @@
+@import '../base/variables.less';
+@import '../base/functions.less';
+
+div#dashboard {
+
+	ul.kanban {
+		margin: 10px auto;
+		height: 90%;
+
+		input.search {
+			width: 92%;
+		}
+
+		li.kanban {
+			background-color: #fff;
+			.box-shadow(0 0 10px #999);
+			width: 24%;
+			border-left: solid 3px @DefaultColor;
+			border-radius: 2px;
+			display: inline-block;
+			margin: auto;
+			height: 100%;
+			overflow: auto;
+			position: relative;
+
+			a, span {
+				display: inline-block;
+				width: 100%;
+				padding: 5px;
+				.transition(all 0.1s ease 0s);
+			}
+
+			a:hover {
+				background-color: @SilverColor;
+			}
+
+			span.count {
+				float: right;
+				width: auto;
+			}
+		}
+
+		li.kanban.block {
+			opacity: .6;
+			cursor: default;
+
+			a, input {
+				cursor: default !important;
+			}
+
+			.block {
+				height: 100%;
+				width: 100%;
+				display: inline-block;
+				position: absolute;
+				z-index: 999;
+				cursor: no-drop;
+			}
+		}
+
+		h2 {
+			padding: 0;
+			height: 50px;
+			line-height: 50px;
+			background-color: @DefaultColorHover;
+			color: #fff;
+			font-weight: 400;
+			position: relative;
+
+			span.icon {
+				background-color: @DefaultColor;
+				padding: 10px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				width: 50px;
+				margin-right: 5px;
+			}
+
+			ul {
+				position: absolute;
+				right: 5px;
+				top: 7px;
+				width: auto;
+
+				li {
+
+					float: left;
+
+					a {
+						color: #fff;
+						border-radius: 2px;
+					}
+				}
+			}
+		}
+
+		li.kanban#list-company {
+
+			border-left: solid 3px @BelizeHoleColor;
+
+			h2 {
+				background-color: @BelizeHoleColorHover;
+				span.icon {
+					background-color: @BelizeHoleColor;
+				}
+			}
+			
+			h2 a:hover {
+				background-color: @BelizeHoleColor;
+			}
+
+			table {
+
+				display: block;
+				height: 84%;
+				overflow: auto;
+
+				tbody tr {
+					cursor: pointer;
+				}
+			}
+		}
+
+		li.kanban#list-units {
+
+			border-left: solid 3px @PumpkinColor;
+
+			h2 {
+				background-color: @PumpkinColorHover;
+				span.icon {
+					background-color: @PumpkinColor;
+				}
+			}
+
+			h2 a:hover {
+				background-color: @PumpkinColor;
+			}
+
+			ul.units {
+
+				li.unity {
+
+					line-height: 50px;
+					position: relative;
+					cursor: default;
+
+					.show-subunit {
+						cursor: pointer;
+					}
+
+					.show-subunit:not(.drop) {
+						.rotate(-90deg);
+					}
+
+					label {
+						float: left;
+						margin-left: 5px;
+						margin-top: 10px;
+					}
+
+					i {
+						margin-top: 10px;
+					}
+
+					span {
+						width: 60%;
+						padding: 0;
+						font-weight: normal;
+					}
+
+					ul.actions {
+						position: absolute;
+						right: 15px;
+						top: 5px;
+						opacity: 0;
+
+						a {
+							color: #333;
+							display: inline;
+							padding: 0;
+							width: auto;
+						}
+
+						li {
+							float: left;
+							margin-left: 10px;
+							padding: 5px;
+							height: 40px;
+							line-height: 40px;
+							border-radius: 2px;
+							cursor: pointer;
+
+							i {
+								margin-top: 0;
+							}
+						}
+
+						li:hover {
+							background-color: @SilverColor;
+						}
+					}
+
+					ul.subunits {
+						padding-left: 25px;
+						margin-left: 10px;
+						display: none;
+						border-left: dashed 1px #333;
+					}
+				}
+
+				li.unity:hover, li.unity.active {
+
+					background-color: @SilverColorHover;
+				}
+
+				li.unity div:hover {
+
+					ul {
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		li.kanban#list-indicators {
+
+			table {
+
+				tbody {
+
+					tr {
+						td:nth-child(1) {
+							width: 7%;
+						}
+						td:nth-child(2) {
+							width: 90%;
+						}
+					}
+				}
+			}
+		}
+
+		li.kanban#list-indicators {
+
+			h2 a:hover {
+				background-color: @DefaultColor;
+			}
+		}
+
+		li.kanban#list-assignment {
+
+			border-left: solid 3px @AsbestosColor;
+
+			h2 {
+
+				background-color: @AsbestosColorHover;
+
+				span.icon {
+
+					background-color: @AsbestosColor;
+				}
+			}
+
+			table#table-validators, table#table-respondents {
+
+				height: 40%;
+			}
+
+			table i {
+
+				color: @PomegranateColor;
+			}
+		}
+
+		li.kanban#list-assignment, li.kanban#list-users {
+
+			img {
+				border-radius: 50%;
+				width: 36px;
+				float: left;
+			}
+
+			table {
+
+				span {
+					float: left;
+					height: 32px;
+					line-height: 32px;
+					width: 80%;
+					margin-left: 2%;
+				}
+			}
+
+			tr.title {
+				td:nth-child(1) {
+					width: 7%;
+				}
+				td:nth-child(2) {
+					width: 90%;
+				}
+			}
+		}
+
+		li.kanban#list-users {
+
+			border-left: solid 3px @PomegranateColor;
+
+			h2 {
+				background-color: @PomegranateColorHover;
+				span.icon {
+					background-color: @PomegranateColor;
+				}
+			}
+
+			h2 a:hover {
+				background-color: @PomegranateColor;
+			}
+
+			table {
+				tr {
+					cursor: all-scroll;
+				}
+			}
+		}
+
+		li.kanban:not(#list-company) table {
+			height: 84%;
+			overflow: auto;
+			display: block;
+
+			tbody, thead {
+				width: 100%;
+				display: inline-block;
+
+				tr {
+					cursor: pointer;
+					width: 100%;
+					display: inline-block;
+					border-bottom: solid 1px @SilverColorHover;
+					position: relative;
+
+					ul {
+						position: absolute;
+						right: 15px;
+						top:10px;
+					}
+
+					td {
+						width: 100%;
+						display: inline-block;
+					}
+				}
+			}
+
+			tr.title {
+				font-size: 16px;
+				background-color: @SilverColorHover;
+				cursor: default;
+				padding: 5px;
+
+				td {
+					height: 20px;
+					line-height: 20px;
+					padding: 0;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,197 @@
+@import '../base/variables.less';
+@import '../base/functions.less';
+
+body, .content {
+	padding: 0;
+}
+
+.loginLine{
+	display: inline-block;
+	width: 100%;
+	height: 10px;
+	background-color: @DefaultColor;
+}
+
+.boxLogin{
+	background-color: #fff;
+	margin: 10% auto;
+	height: 50%;
+	min-height: 400px;
+	max-height: 500px;
+	position: relative;
+	padding: 1%;
+	.box-shadow(0 0 5px #999);
+	.border-radius(2px);
+
+	input{
+		font-size: 26px;
+		font-weight: 100;
+	}
+
+	.btn{
+		float: right;
+	}
+
+	ul{
+	    background-color: @DefaultColorHover;
+	    height: 30px;
+	    left: 0;
+	    bottom: -43px;
+	    overflow: hidden;
+	    position: absolute;
+	    width: 100%;
+	    .border-radius( 0 0 2px 2px );
+
+	    li{
+		    color: #fff;
+		    cursor: pointer;
+		    float: left;
+		    font-size: 13px;
+		    margin: 0;
+		    padding: 0 10px;
+		    height: 30px;
+		    line-height: 30px;
+		    .transition( all 0.1s ease 0s );
+
+		    a {
+		    	color: #fff;
+		    }
+	    }
+
+		li:hover, li.active {
+		    background-color: @DefaultColor;
+		}
+	}
+
+	.boxLogo{
+		width: 30%;
+		float: left;
+		margin: 5% 0;
+
+		.animateLogin{
+			height: 200px;
+		}
+
+		.animateLogin img{
+			position: absolute;
+		}
+
+		/* Sis */
+		img.logoOne{
+			.animation( logoOneSis, 5s, 2s, infinite );
+			z-index: 10;
+		}
+
+		img.logoTwo{
+			.animation( logoTwoSis, 5s, 3s, infinite );
+			z-index: 30;
+		}
+
+		img.logoTree{
+			.animation( logoTwoSis, 5s, 3500ms, infinite );
+			z-index: 20;
+		}
+
+		img.logoName{
+			top: 60%;
+		}
+	}
+
+	@keyframes logoOneSis{
+		0%,30% {
+			.transform( rotate(0deg) );
+		}
+		100%  	{
+			.transform( rotate(360deg) );
+		}
+	}
+
+	@keyframes logoTwoSis{
+		0%,30% {
+			.transform( rotate(0deg) );
+		}
+		100%  	{
+			.transform( rotate(360deg) );
+		}
+	}
+
+	@keyframes logoTree{
+		0%,30% {
+			.transform( rotate(0deg) );
+		}
+		100%  	{
+			.transform( rotate(360deg) );
+		}
+	}
+
+	.formLogin{
+		display: inline-table;
+		width: 65%;
+		margin: 10% 0 0 4%;
+	}
+}
+
+.loginFooter.row{
+	margin: auto;
+	text-align: center;
+	margin-left: none;
+	margin-right: none;
+	font-size: 13px;
+	font-weight: 300;
+}
+
+.digicert {
+    bottom: 20px;
+    left: 20px;
+    height: 40px;
+    position: fixed;
+}
+
+/* Desktop */
+@media only screen and (min-width: 1439px){
+   
+	.boxLogin, .loginFooter{
+		width: 40%;
+	}
+}
+
+/* Tablets */
+@media only screen and (min-width: 667px) and (max-width: 1439px){
+
+	.boxLogin, .loginFooter{
+		width: 60%;
+	}
+}
+
+/* Smartphones */
+@media only screen and (max-width: 667px){
+
+	.boxLogin, .loginFooter{
+		width: 95%;
+	}
+
+	.boxLogin{
+		max-height: 100%;
+		height: 90%;
+		display: table;
+
+		.btn{
+			width: 98%;
+		}
+
+		.logoName{
+			display: none;
+		}
+
+		.boxLogo, .formLogin{
+			width: 100% !important;
+			margin: auto !important;
+		}
+
+		.boxLogo{
+			float: inherit !important;
+		    margin: 5% auto !important;
+		    width: 200px !important;
+		}
+	}
+}

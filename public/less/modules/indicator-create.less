@@ -1,0 +1,57 @@
+@import '../base/variables.less';
+@import '../base/functions.less';
+
+ul.bar-edit-indicator {
+	width: 70px;
+	height: 85%;
+	background-color: @SilverColor;
+	float: left;
+	border-radius: 2px;
+	box-shadow: 0 0 5px #ccc;
+	padding: 0;
+	margin: 0;
+
+	li {
+		margin:  auto;
+		border-radius: 2px;
+		padding: 5px;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+		i {
+			font-size: 48px;
+		}
+	}
+
+	li:hover {
+		background-color: @SilverColorHover;
+		color: #333;
+	}
+}
+
+#load-indicator {
+	float: left;
+	padding: 5px;
+	width: 96%;
+	height: 85%;
+	overflow: auto;
+
+	table {
+
+		tr {
+
+			td {
+
+				border: solid 1px @SilverColor;
+				cursor: pointer;
+				min-width: 100px;
+				min-height: 30px;
+			}
+
+			td:hover {
+
+				background-color: @SilverColor;
+			}
+		}
+	}
+}

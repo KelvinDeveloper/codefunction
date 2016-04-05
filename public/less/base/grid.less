@@ -1,0 +1,61 @@
+@import '../base/variables.less';
+@import '../base/functions.less';
+
+table {
+
+	thead {
+
+		tr {
+			background-color: @SilverColorHover;
+
+			th {
+
+				text-transform: capitalize;
+				display: table-cell;
+				width: 100%;
+			}
+		}
+	}
+
+	tbody {
+
+		tr {
+
+			ul {
+
+				opacity: 0;
+				cursor: pointer;
+
+				li {
+					float: left;
+					padding: 5px;
+					border-radius: 2px;
+					height: 35px;
+					cursor: pointer;
+				}
+
+				li:hover {
+					background-color: @SilverColor;
+				}
+			}
+
+			td {
+
+				img {
+					max-width: 130px;
+					max-height: 70px;
+				}
+			}
+		}
+
+		tr:hover, tr.active {
+
+			background-color: @SilverColorHover;
+
+			ul {
+
+				opacity: 1;
+			}
+		}
+	}
+}
