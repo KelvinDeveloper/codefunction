@@ -114,12 +114,21 @@ setInterval(function(){
 	$('.save').click();
 }, 10000);
 
-$(window).keypress(function(event) {
-
-    if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
-    $('.save').click();
-    event.preventDefault();
-    return false;
+$(window).bind('keydown', function(event) {
+    if (event.ctrlKey || event.metaKey) {
+        switch (String.fromCharCode(event.which).toLowerCase()) {
+        case 's':
+            event.preventDefault();
+            $('.save').click();
+            break;
+        case 'f':
+            event.preventDefault();
+            break;
+        case 'g':
+            event.preventDefault();
+            break;
+        }
+    }
 });
 
 $(document).ready(function(){
