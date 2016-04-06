@@ -1,7 +1,7 @@
 <ul class="menu-top">
 
 	<span class="logo">
-		<\code>
+		<\cf>
 	</span>
 
 	<li class="tooltipped" data-tooltip="{{ _('Syntax') }}">
@@ -26,5 +26,9 @@
 
 	<li>
 		<input value="{{ 'http://' . $_SERVER['HTTP_HOST'] . '/' . $hash }}">
+	</li>
+
+	<li class="save">
+		<i class="material-icons">save</i>
 	</li>
 </ul>

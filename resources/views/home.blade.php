@@ -99,12 +99,44 @@ $('select[name="syntax"]').change(function(){
 	});
 });
 
+$('.save').click(function(){
+	Load({
+		Type: 'POST',
+		navAjax: false,
+		Url: '/{{ $hash }}/save/{{ $init }}',
+		Data: {
+			content: editor.getValue()
+		}
+	});
+});
+
+setInterval(function(){
+	$('.save').click();
+}, 10000);
+
+$(window).keypress(function(event) {
+
+    if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19)) return true;
+    $('.save').click();
+    event.preventDefault();
+    return false;
+});
+
 $(document).ready(function(){
 
 	$('[name="syntax"] option[value="{{ $code->syntax }}"]').prop('selected', true).change();
 	$('[name="theme"] option[value="{{ $code->theme }}"]').prop('selected', true).change();
 
 	$('select').material_select();
+
+	Load({
+		Type: 'POST',
+		navAjax: false,
+		Url: '/{{ $hash }}/load/{{ $init }}',
+		Success: function( Return ) {
+			editor.getDoc().setValue( Return );
+		}
+	});
 });
 </script>
 

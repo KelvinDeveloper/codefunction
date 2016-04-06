@@ -1,0 +1,11 @@
+<?php 
+
+	echo 'teste';
+
+	function teste() {
+      
+      $variavel = 'teste';
+      
+		return 'teste';
+      
+	}

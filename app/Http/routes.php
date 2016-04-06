@@ -29,10 +29,38 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/{hash}', function ( $hash ) use ($app) {
-
+	
 	$code = $query = app('db')->select( " SELECT * FROM codes WHERE hash = '" . $hash . "' LIMIT 1 " );
-    return view('/home', ['hash' => $hash, 'code' => $code[0]]);
+	$folder = $_SERVER['DOCUMENT_ROOT'] . '/scripts/' . $hash . '/';
+
+	if (! file_exists( $folder ) ) {
+
+		mkdir( $folder );
+		chmod( $folder, 0777 );
+	}
+
+	$length = count( scandir( $folder ) ) - 2;
+
+	if( $length < 1 ) {
+
+		$create_file = fopen( $folder . 'untitled','w' );
+		chmod( $folder . 'untitled', 0777 );
+	}
+
+	$files = [];
+
+	foreach ( scandir( $folder ) as $file) {
+
+		if ( $file !== '.' && $file !== '..' ) {
+
+			$files[] = $file;
+		}
+	}
+
+    return view('/home', ['hash' => $hash, 'code' => $code[0], 'files' => $files, 'init' => $files[0] ] );
 });
 
 $app->post('/{hash}/save/theme', 'CodeController@saveTheme');
 $app->post('/{hash}/save/syntax', 'CodeController@saveSyntax');
+$app->post('/{hash}/load/{file}', 'CodeController@load');
+$app->post('/{hash}/save/{file}', 'CodeController@saveFile');
