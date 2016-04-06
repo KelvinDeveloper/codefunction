@@ -23,9 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
+
+// require realpath(__DIR__.'/../') . '/app/events.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +82,11 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+$app->register(BrainSocket\BrainSocketServiceProvider::class);
+class_alias('BrainSocket\BrainSocketFacade', 'BrainSocket');
+
+require realpath(__DIR__.'/../') . '/app/events.php';
 
 /*
 |--------------------------------------------------------------------------

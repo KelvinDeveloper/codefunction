@@ -67,6 +67,17 @@ function change() {
 	}
 }
 
+function codeLoad() {
+	Load({
+		Type: 'POST',
+		navAjax: false,
+		Url: '/{{ $hash }}/load/{{ $init }}',
+		Success: function( Return ) {
+			editor.getDoc().setValue( Return );
+		}
+	});
+}
+
 CodeMirror.on(modeInput, "keypress", function(e) {
 
 	if (e.keyCode == 13) change();
@@ -110,6 +121,11 @@ $('.save').click(function(){
 	});
 });
 
+$('.refresh').click(function(){
+	$('.save').click();
+	codeLoad();
+});
+
 setInterval(function(){
 	$('.save').click();
 }, 10000);
@@ -121,15 +137,13 @@ $(window).bind('keydown', function(event) {
             event.preventDefault();
             $('.save').click();
             break;
-        case 'f':
-            event.preventDefault();
-            break;
-        case 'g':
-            event.preventDefault();
-            break;
         }
     }
 });
+
+/* Socket */
+// app.BrainSocket.message('Congrats, Welcome to the team!');
+/* Ends Socket */
 
 $(document).ready(function(){
 
@@ -138,15 +152,27 @@ $(document).ready(function(){
 
 	$('select').material_select();
 
-	Load({
-		Type: 'POST',
-		navAjax: false,
-		Url: '/{{ $hash }}/load/{{ $init }}',
-		Success: function( Return ) {
-			editor.getDoc().setValue( Return );
-		}
-	});
-});
-</script>
+	codeLoad();
 
+	window.app = {};
+
+	app.BrainSocket = new BrainSocket(
+		new WebSocket('ws://{{ $_SERVER['HTTP_HOST'] }}:8080'),
+		new BrainSocketPubSub()
+	);
+
+	app.BrainSocket.Event.listen('app.init',function(msg)
+	{
+		console.log(msg);
+	});
+
+	setTimeout(function(){
+		app.BrainSocket.message('app.init', {
+			hash: '{{ $hash }}'
+		});
+	}, 500);
+});
+
+</script>
+<script type="text/javascript" src="js/modules/socket/brain-socket.min.js" />
 @endsection

@@ -31,4 +31,8 @@
 	<li class="save">
 		<i class="material-icons">save</i>
 	</li>
+
+	<li class="refresh">
+		<i class="material-icons">refresh</i>
+	</li>
 </ul>
