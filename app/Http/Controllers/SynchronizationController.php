@@ -14,20 +14,20 @@ class SynchronizationController extends Controller implements MessageComponentIn
 	}
 
 	public function onOpen(ConnectionInterface $conn) {
-		echo "Connection Established! \n";
+		echo "Conexão estabelecida! \n";
 	}
 
 
 	public function onMessage(ConnectionInterface $conn, $msg){
-		echo "this messge gets called whenever there is a messge sent from js client";
+		echo "envio de mensagem";
 	}
 
 	public function onClose(ConnectionInterface $conn) {
-		echo "Connection {$conn->resourceId} has disconnected\n";
+		echo "Conexão {$conn->resourceId} finalizada! \n";
 	}
 
 	public function onError(ConnectionInterface $conn, \Exception $e) {
-		$msg = "An error has occurred: {$e->getMessage()}\n";
+		$msg = "Erro ao conectar: {$e->getMessage()}\n";
 		echo $msg;
 		$conn->close();
 	}
