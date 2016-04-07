@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "787eb9b88fcf2d6d1dfa6406d33a67c5",
+    "hash": "f19260a22aec092d7bf13b64b57e71ca",
+    "content-hash": "d3c772b71e95211bf0bbd30eb286ff90",
     "packages": [
         {
             "name": "brainboxlabs/brain-socket",

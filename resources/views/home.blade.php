@@ -126,9 +126,9 @@ $('.refresh').click(function(){
 	codeLoad();
 });
 
-setInterval(function(){
-	$('.save').click();
-}, 10000);
+// setInterval(function(){
+// 	$('.save').click();
+// }, 10000);
 
 $(window).bind('keydown', function(event) {
     if (event.ctrlKey || event.metaKey) {
@@ -157,7 +157,7 @@ $(document).ready(function(){
 	window.app = {};
 
 	app.BrainSocket = new BrainSocket(
-		new WebSocket('ws://{{ $_SERVER['HTTP_HOST'] }}:8080'),
+		new WebSocket('ws://{{ $_SERVER['SERVER_NAME'] }}:8080'),
 		new BrainSocketPubSub()
 	);
 
@@ -168,7 +168,8 @@ $(document).ready(function(){
 
 	setTimeout(function(){
 		app.BrainSocket.message('app.init', {
-			hash: '{{ $hash }}'
+			hash: '{{ $hash }}',
+			user: '{{ $user }}',
 		});
 	}, 500);
 });
