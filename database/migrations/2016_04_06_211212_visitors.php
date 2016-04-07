@@ -15,7 +15,8 @@ class Visitors extends Migration
         Schema::create("visitors", function (Blueprint $table) {
             $table->increments("id");
             $table->string("hash", 20)->unique();
-            $table->string("user_id", 20)->unique();
+            $table->integer("user_id")->unique();
+            $table->integer("editing");
 
             $table->timestamps();
         });

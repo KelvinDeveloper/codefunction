@@ -22,7 +22,6 @@ class SynchronizationController extends Controller implements MessageComponentIn
 	}
 
 	public function onMessage(ConnectionInterface $from, $msg) {
-		$numRecv = count($this->clients) - 1;
 
 		$msg = json_decode( $msg );
 
@@ -32,18 +31,21 @@ class SynchronizationController extends Controller implements MessageComponentIn
 				$this->init( $from->resourceId, $msg );
 				break;
 		}
-
-		$msg->id = $from->resourceId;
-
-		foreach ($this->clients as $client) {
-			$client->send($this->response->make(json_encode( $msg )));
-		}
 	}
 
 	public function onClose(ConnectionInterface $conn) {
 		$this->clients->detach($conn);
 		echo "Connection {$conn->resourceId} has disconnected\n";
+
+		$hash = app('db')->select( " SELECT hash FROM code.visitors WHERE user_id = '" . $conn->resourceId . "' " );
 		app('db')->delete( " DELETE FROM code.visitors WHERE user_id = '" . $conn->resourceId . "' " );
+
+		$count = app('db')->select( " SELECT count( id ) as id FROM code.visitors WHERE hash = '" . $hash[0]->hash . "' " );
+
+		$array['client']['event'] = 'app.init';
+		$array['client']['data']['total'] = $count[0]->id;
+
+		$this->send( json_encode( $array ) );
 	}
 
 	public function onError(ConnectionInterface $conn, \Exception $e) {
@@ -51,7 +53,18 @@ class SynchronizationController extends Controller implements MessageComponentIn
 		$conn->close();
 	}
 
+	public function send( $msg ) {
+		foreach ($this->clients as $client) {
+			$client->send($this->response->make( $msg ));
+		}
+	}
+
 	public function init( $id, $array ) {
-		echo 'passou';
+
+		$count = app('db')->select( " SELECT count( id ) as id FROM code.visitors WHERE hash = '" . $array->client->data->hash . "' " );
+		app('db')->update( " UPDATE code.visitors SET hash = '" . $array->client->data->hash . "', editing = '" . ( $count[0]->id == 0 ? 1 : 0 ) . "' WHERE user_id = '" . $id . "' " );
+
+		$array->client->data = [ 'total' => ( $count[0]->id + 1 ) ];
+		$this->send( json_encode( $array ) );
 	}
 }

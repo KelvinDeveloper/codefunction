@@ -141,10 +141,6 @@ $(window).bind('keydown', function(event) {
     }
 });
 
-/* Socket */
-// app.BrainSocket.message('Congrats, Welcome to the team!');
-/* Ends Socket */
-
 $(document).ready(function(){
 
 	$('[name="syntax"] option[value="{{ $code->syntax }}"]').prop('selected', true).change();
@@ -161,17 +157,31 @@ $(document).ready(function(){
 		new BrainSocketPubSub()
 	);
 
-	app.BrainSocket.Event.listen('app.init',function(msg)
+	app.BrainSocket.Event.listen('app.init', function(msg)
 	{
-		console.log(msg);
+		if ( msg.client.data.total > 1 ) {
+
+			$('ul.menu-top li.visitors span.count').text( msg.client.data.total );
+			
+		}
+
+		// if ( msg.client.data.editing ) {
+		// 	$('.CodeMirror').removeClass('blocked');
+		// } else {
+		// 	$('.CodeMirror').addClass('blocked');
+		// }
 	});
 
 	setTimeout(function(){
 		app.BrainSocket.message('app.init', {
 			hash: '{{ $hash }}',
-			user: '{{ $user }}',
 		});
 	}, 500);
+
+	$(document).on('keypress', '.CodeMirror.blocked', function(e){
+		return false;
+	});
+
 });
 
 </script>
