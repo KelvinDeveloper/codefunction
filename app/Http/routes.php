@@ -25,14 +25,6 @@ $app->get('/', function () use ($app) {
 		$hash = $_COOKIE['hash'];
 	}
 
-	if (! isset( $_COOKIE['user'] ) || $_COOKIE['user'] == '' ) {
-
-		$user = 'user-' . hash('crc32b', time() );
-
-		setcookie('user', $user);
-		$_COOKIE['user'] = $user;
-	}
-
     return redirect('/' . $hash);
 });
 
@@ -65,7 +57,7 @@ $app->get('/{hash}', function ( $hash ) use ($app) {
 		}
 	}
 
-    return view('/home', ['hash' => $hash, 'code' => $code[0], 'files' => $files, 'init' => $files[0], 'user' => $_COOKIE['user'] ] );
+    return view('/home', ['hash' => $hash, 'code' => $code[0], 'files' => $files, 'init' => $files[0] ] );
 });
 
 $app->post('/{hash}/save/theme', 'CodeController@saveTheme');
