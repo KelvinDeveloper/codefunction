@@ -23,3 +23,14 @@ Load({
 		Units = json;
 	}
 });
+
+Load({
+	Type: 'POST',
+	DataType: 'json',
+	Url: '/indicator/get/all',
+	navAjax: false,
+	Success: function(json) {
+
+		Indicators = json;
+	}
+});
