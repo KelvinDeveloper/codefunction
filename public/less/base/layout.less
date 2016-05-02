@@ -92,20 +92,77 @@ body {
 
 ul.menu-top {
 
-	.logo {
-		float: left;
-		color: #fff;
-		font-size: 32px;
-		font-weight: 300;
-	}
-
 	padding: 0;
 	margin: 0;
-	background-color: @PomegranateColorHover;
+	height: 50px;
+	line-height: 50px;
 	color: #fff;
-	height: 5%;
+	overflow: hidden;
 
-	.select-wrapper {
+	.logo {
+		color: #fff;
+		font-size: 36px;
+		font-weight: 300;
+		padding: 5px;
+	}
+
+	.url input {
+		width: 230px;
+	}
+
+	a {
+		color: #fff !important;
+	}
+
+	> li {
+
+		display: inline-block;
+		float: right;
+		line-height: 50px;
+		padding: 5px 10px;
+		color: #fff;
+		border: solid 1px @PomegranateColorHover;
+		border-right: none;
+		cursor: pointer;
+
+		i {
+			font-size: 36px;
+		}
+	}
+
+	> li:hover {
+		background-color: @PomegranateColorHover;
+	}
+
+	ul {
+
+		position: absolute;
+		background-color: #fff;
+		width: 300px;
+		z-index: 100;
+		display: none;
+
+		li {
+
+			color: #333;
+			padding: 5px;
+			border-bottom: solid 1px @SilverColorHover;
+			
+			span {
+
+				color: @PomegranateColor;
+				float: right;
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+		}
+
+		li:hover {
+			background-color: @SilverColorHover;
+		}
+	}
+
+/*	.select-wrapper {
 
 		.caret {
 			color: #fff;
@@ -131,17 +188,75 @@ ul.menu-top {
 	}
 
 	li {
-		width: 200px;
+		width: 230px;
 		float: right;
 		margin: 0 10px;
 	}
 
-	li.save, li.refresh {
+	li.save, li.refresh, li.new {
+		color: #fff;
 		width: auto;
 		i {
 			font-size: 42px;
 			margin-top: 10%;
 			cursor: pointer;
+		}
+	}*/
+}
+
+.block-selection.theme {
+	width: 200px;
+}
+
+.block-selection {
+
+	position: absolute;
+	right: 10px;
+	top: 60px;
+	background-color: #fff;
+	z-index: 10;
+	width: auto;
+	display: none;
+
+	.search {
+
+		height: 45px;
+	}
+
+	div.title {
+
+		width: 400px;
+
+		li {
+			border-bottom: solid 2px @SilverColor;
+			background-color: @SilverColorHover;
+			color: @PomegranateColor;
+			width: 200px;
+			float: left;
+			border-right: solid 2px @PomegranateColor;
+			text-transform: uppercase;
+			text-align: center;
+			font-weight: bold;
+		}
+	}
+
+	.column {
+
+		width: 200px;	
+		float: left;
+		border-right: solid 2px @PomegranateColor;
+		height: 300px;
+		overflow: auto;	
+
+		li {
+			border-bottom: solid 1px @SilverColorHover;
+			padding: 5px;
+			cursor: pointer;
+			text-transform: uppercase;
+		}
+
+		li:hover {
+			background-color: @SilverColorHover;	
 		}
 	}
 }

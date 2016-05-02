@@ -11,7 +11,7 @@
 */
 
 $app->get('/', function () use ($app) {	
-
+	
 	if (! isset( $_COOKIE['hash'] ) || $_COOKIE['hash'] == '' ) {
 
 		$hash = hash('crc32b', time() );
@@ -28,9 +28,23 @@ $app->get('/', function () use ($app) {
     return redirect('/' . $hash);
 });
 
+$app->get('/new', function () use ($app) {	
+
+    unset($_COOKIE['hash']);
+    setcookie('hash', null, -1, '/');
+
+	return redirect('/');
+});
+
 $app->get('/{hash}', function ( $hash ) use ($app) {
 	
 	$code = $query = app('db')->select( " SELECT * FROM codes WHERE hash = '" . $hash . "' LIMIT 1 " );
+
+	if ( count( $code ) < 1 ) {
+
+		return redirect('/new');
+	}
+
 	$folder = $_SERVER['DOCUMENT_ROOT'] . '/scripts/' . $hash . '/';
 
 	if (! file_exists( $folder ) ) {

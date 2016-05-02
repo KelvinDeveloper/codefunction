@@ -122,8 +122,11 @@ $('.save').click(function(){
 });
 
 $('.refresh').click(function(){
-	$('.save').click();
-	codeLoad();
+
+	if ( confirm('Unsaved changes will be lost. Do you wish to continue?') == true ) {
+
+		codeLoad();
+	}
 });
 
 // setInterval(function(){
@@ -164,12 +167,6 @@ $(document).ready(function(){
 			$('ul.menu-top li.visitors span.count').text( msg.client.data.total );
 			
 		}
-
-		// if ( msg.client.data.editing ) {
-		// 	$('.CodeMirror').removeClass('blocked');
-		// } else {
-		// 	$('.CodeMirror').addClass('blocked');
-		// }
 	});
 
 	setTimeout(function(){
@@ -180,6 +177,10 @@ $(document).ready(function(){
 
 	$(document).on('keypress', '.CodeMirror.blocked', function(e){
 		return false;
+	});
+
+	$('.menu-top input').focus(function(){
+		$(this).select();
 	});
 
 });
