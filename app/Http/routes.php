@@ -34,8 +34,11 @@ $app->get('/', function () use ($app) {
 
 $app->get('/new', function () use ($app) {	
 
-    unset($_COOKIE['hash']);
-    setcookie('hash', null, -1, '/');
+	if ( ! isset( $_COOKIE['name'] ) ) {
+
+	    unset($_COOKIE['hash']);
+	    setcookie('hash', null, -1, '/');
+	}
 
 	return redirect('/');
 });

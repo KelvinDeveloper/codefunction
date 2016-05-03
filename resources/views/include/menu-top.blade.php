@@ -40,11 +40,11 @@
 		<i class="material-icons">refresh</i>
 	</li>
 	
-	<li class="new tooltipped" data-tooltip="New document">
+<!-- 	<li class="new tooltipped" data-tooltip="New document">
 		<a href="/new" class="stopFunction">
 			<i class="material-icons">add</i>
 		</a>
-	</li>
+	</li> -->
 
 	<li class="tooltipped url" data-tooltip="Url">
 		<input value="{{ 'http://' . $_SERVER['HTTP_HOST'] . '/' . $hash }}">
