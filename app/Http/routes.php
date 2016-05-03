@@ -10,6 +10,10 @@
 |
 */
 
+$app->get('/logout', 'UserController@logout');
+$app->post('/register', 'UserController@register');
+$app->post('/login', 'UserController@login');
+
 $app->get('/', function () use ($app) {	
 	
 	if (! isset( $_COOKIE['hash'] ) || $_COOKIE['hash'] == '' ) {

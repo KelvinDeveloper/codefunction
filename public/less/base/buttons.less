@@ -1,12 +1,28 @@
 @import 'variables.less';
 
 .btn {
-	background-color: @DefaultColor !important;
+	background-color: @PomegranateColor !important;
 	font-family: @DefaultFont;
 	font-weight: 300;
+
+	i {
+		font-size: 22px !important;
+	}
 }
 
 .btn-silver {
 	background-color: @SilverColor !important;
 	color: #333;
+}
+
+.btn-facebook {
+	background-image: url('/img/ico/btn-fb.png');
+	background-size: cover;
+	border: medium none;
+	color: transparent;
+	display: inline-block;
+	height: 30px;
+	width: 180px;
+	border-radius: 2px;
+	background-position: center;
 }

@@ -110,6 +110,15 @@ ul.menu-top {
 		width: 230px;
 	}
 
+	.user {
+
+		background-image: url('/img/ico/person.svg');
+	    height: 100%;
+	    width: 50px;
+	    background-repeat: no-repeat;
+	    background-position: center;
+	}
+
 	a {
 		color: #fff !important;
 	}
@@ -161,51 +170,24 @@ ul.menu-top {
 			background-color: @SilverColorHover;
 		}
 	}
-
-/*	.select-wrapper {
-
-		.caret {
-			color: #fff;
-		}
-
-		input {
-			margin: 0;
-			padding: 0 5px;
-			text-transform: uppercase !important;
-		}
-
-		ul {
-
-			li span {
-
-				color: @PomegranateColor;
-			}
-		}
-	}
-
-	.select-wrapper:hover {
-		background-color: @PomegranateColor;
-	}
-
-	li {
-		width: 230px;
-		float: right;
-		margin: 0 10px;
-	}
-
-	li.save, li.refresh, li.new {
-		color: #fff;
-		width: auto;
-		i {
-			font-size: 42px;
-			margin-top: 10%;
-			cursor: pointer;
-		}
-	}*/
 }
 
 .block-selection.theme {
 	width: 200px;
+}
+
+.block-selection.login {
+
+	/*height: 195px;*/
+
+	li {
+		border: none;
+		cursor: default;
+	}
+
+	li:hover {
+		background-color: transparent;
+	}
 }
 
 .block-selection {
