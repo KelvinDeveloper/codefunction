@@ -69,6 +69,7 @@
 		<li data-search="javascript">Javascript</li>
 		<li data-search="python">Python</li>
 		<li data-search="css">CSS</li>
+		<li data-search="plain text">Plain Text</li>
 		<li data-search="django">django</li>
 		<li data-search="perl">perl</li>
 		<li data-search="ruby">ruby</li>
@@ -132,7 +133,7 @@ $(document).keyup(function(e){
 });
 
 $(document).click(function(){
-	$('li ul, .block-selection').hide();
+	$('.block-selection li ul, .menu-top li ul, .block-selection').hide();
 });
 
 $(document).ready(function(){

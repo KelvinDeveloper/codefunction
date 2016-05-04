@@ -20,6 +20,14 @@
 	<textarea id="code" name="code" placeholder=""></textarea>
 </form>
 
+<div id="navigation-folders">
+	<ul>
+		<li class="title folder">FOLDER</li>
+
+		<ul></ul>
+	</ul>
+</div>
+
 <input id="mode" style="display: none;">
 
 <script type="text/javascript">
@@ -61,9 +69,6 @@ function change() {
 
 		editor.setOption('mode', spec);
 		CodeMirror.autoLoadMode(editor, mode);
-	} else {
-
-		alert("Could not find a mode corresponding to " + val);
 	}
 }
 
@@ -140,6 +145,11 @@ $(window).bind('keydown', function(event) {
             event.preventDefault();
             $('.save').click();
             break;
+
+        case 'l':
+        	alert('pesquisar');
+        	return false;
+        	break;
         }
     }
 });
@@ -183,7 +193,45 @@ $(document).ready(function(){
 		$(this).select();
 	});
 
+	// sync files
+	Load({
+		Url: '/get/files',
+		Type: 'POST',
+		navAjax: false,
+		Data: {
+			folder: '/'
+		}
+	}, '#navigation-folders ul ul');
+
+	$(document).on('click', '#navigation-folders ul li.folder span', function(){
+
+		var This = $(this).parent('li');
+
+		if ( This.find('ul:first').html() != '' ) {
+			This.find('ul:first').toggle();
+			return false;
+		}
+
+		Load({
+			Url: '/get/files',
+			Type: 'POST',
+			navAjax: false,
+			Data: {
+				folder: This.data('location')
+			},
+			Success: function(html) {
+
+				This.find('ul').append( html ).show();
+			}
+		});
+	});
+
 });
+
+// $('#navigation-folders li.folder i').click(function(){
+
+// 	$(this).parent('li').find('ul:first').toggle();
+// });
 
 </script>
 <script type="text/javascript" src="js/modules/socket/brain-socket.min.js" />
