@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>@yield('title') Code</title>
+        <title>@yield('title') CodeFunction</title>
         <meta charset="UTF-8">
 
         <script type="text/javascript" src="/js/base/jquery.min.js"></script>

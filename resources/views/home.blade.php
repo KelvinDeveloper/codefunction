@@ -16,6 +16,8 @@
 
 @include('include/menu-top')
 
+<ul class="tabs"></ul>
+
 <form>
 	<textarea id="code" name="code" placeholder=""></textarea>
 </form>
@@ -72,13 +74,39 @@ function change() {
 	}
 }
 
-function codeLoad() {
+function codeLoad( file ) {
 	Load({
 		Type: 'POST',
+		DataType: 'json',
 		navAjax: false,
-		Url: '/{{ $hash }}/load/{{ $init }}',
-		Success: function( Return ) {
-			editor.getDoc().setValue( Return );
+		Url: '/{{ $hash }}/load',
+		Data: {
+			file: ( file == undefined ? '{{ $init }}' : file )
+		},
+		Success: function( json ) {
+			editor.getDoc().setValue( json.Code );
+			if ( json.info.extension !== undefined ) {
+
+				var newSyntax = '';
+
+				switch( json.info.extension ) {
+
+					case 'js':
+						newSyntax = 'javascript';
+						break;
+
+					case 'less':
+						newSyntax = 'css';
+						break;
+
+					default:
+						newSyntax = json.info.extension;
+						break;
+				}
+
+				$('#mode').val( newSyntax );
+				change();
+			}
 		}
 	});
 }
@@ -86,33 +114,6 @@ function codeLoad() {
 CodeMirror.on(modeInput, "keypress", function(e) {
 
 	if (e.keyCode == 13) change();
-});
-
-$('select[name="theme"]').change(function(){
-	editor.setOption("theme", $(this).val() );
-
-	Load({
-		Type: 'POST',
-		navAjax: false,
-		Url: '/{{ $hash }}/save/theme',
-		Data: {
-			theme: $(this).val()
-		}
-	});
-});
-
-$('select[name="syntax"]').change(function(){
-	$('#mode').val( $(this).val() );
-	change();
-
-	Load({
-		Type: 'POST',
-		navAjax: false,
-		Url: '/{{ $hash }}/save/syntax',
-		Data: {
-			syntax: $(this).val()
-		}
-	});
 });
 
 $('.save').click(function(){
@@ -133,10 +134,6 @@ $('.refresh').click(function(){
 		codeLoad();
 	}
 });
-
-// setInterval(function(){
-// 	$('.save').click();
-// }, 10000);
 
 $(window).bind('keydown', function(event) {
     if (event.ctrlKey || event.metaKey) {
@@ -228,10 +225,21 @@ $(document).ready(function(){
 
 });
 
-// $('#navigation-folders li.folder i').click(function(){
+function clickOpenFile( This, createAba ) {
 
-// 	$(this).parent('li').find('ul:first').toggle();
-// });
+	codeLoad( This.data('location') );
+	if ( createAba != undefined ) {
+		$('.tabs').append('<li location="' + This.data('location') + '">' + This.text() + ' <i class="material-icons">close</i></li>' );
+	}
+}
+
+$(document).on('dblclick', '#navigation-folders ul li.file', function(){
+	clickOpenFile( $(this) );
+});
+
+$(document).on('click', '.tabs li', function(){
+	clickOpenFile( $(this) );
+});	
 
 </script>
 <script type="text/javascript" src="js/modules/socket/brain-socket.min.js" />

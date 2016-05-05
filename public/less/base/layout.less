@@ -250,20 +250,26 @@ ul.menu-top {
 }
 
 #navigation-folders {
-	height: 95%;
+	height: 93%;
 	width: 15%;
 	display: inline-block;
 	position: absolute;
 	left: 0;
-	top: 50px;
+	top: 81px;
 	background-color: #333;
 	overflow: auto;
 
 	ul {
 		width: auto;
+		max-width: 1000px;
 		margin: 0;
 
 		li {
+
+			-moz-user-select: none; 
+			-webkit-user-select: none; 
+			-ms-user-select:none; 
+			user-select:none;-o-user-select:none;
 
 			span {
 
@@ -281,16 +287,16 @@ ul.menu-top {
 			}
 		}
 
+		li.file {
+			padding-left: 32px;
+		}
+
 		ul ul {
 
 			display: none;
 			border-left: dashed 1px #444;
 			margin-left: 5px;
 			padding-left: 5px;
-
-			li.file {
-				padding-left: 32px;
-			}
 		}
 
 		li.title {
@@ -302,5 +308,41 @@ ul.menu-top {
 			color: @SilverColorHover;
 			cursor: default;
 		}
+	}
+}
+
+.tabs {
+
+	height: 31px;
+	width: 100%;
+	display: inline-block;
+	background-color: #333;
+	box-shadow: 0 0 5px #222;
+	border: solid 2px #222;
+	color: @SilverColorHover;
+
+	li {
+		padding: 0 30px 0 10px;
+		font-size: 12px;
+		border-right: solid 1px #222;
+		display: inline-block;
+		text-align: center;
+		height: 30px;
+		line-height: 30px;
+		position: relative;
+		border-radius: 0 10px 0 0;
+		margin-left: -3px;
+		cursor: default;
+
+		i {
+			font-size: 16px;
+			position: absolute;
+			top: 7px;
+			right: 5px;
+		}
+	}
+
+	li:hover {
+		background-color: #444;
 	}
 }
