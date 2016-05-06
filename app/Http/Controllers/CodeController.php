@@ -35,9 +35,9 @@ class CodeController extends Controller
         return array( 'Code' => file_get_contents( $this->folder . $_COOKIE['hash'] . '/' . $request->file ), 'info' => pathinfo( $this->folder . $_COOKIE['hash'] . '/' . $request->file ) );
     }
 
-    public function saveFile(Request $request, $hash, $file)
+    public function saveFile(Request $request, $hash)
     {
-        $location = $this->folder . $hash . '/' . $file;
+        $location = $this->folder . $hash . $request->file;
 
         $create_file = fopen( $location . '.tmp', 'w' );
         chmod( $location . '.tmp', 0777 );
@@ -61,12 +61,12 @@ class CodeController extends Controller
 
                 if ( is_dir( '../public/scripts/' . $folder . '/' . $file ) ) {
 
-                    $HTML_FOLDER .= '<li class="folder" data-location="' . $request->folder . '/' . $file . '"><span> <i class="material-icons left">arrow_drop_down</i> <i class="material-icons left">folder</i> ' . $file . '</span>';
+                    $HTML_FOLDER .= '<li class="folder" data-location="' . $request->folder . '/' . $file . '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> ' . $file . '</span>';
                         $HTML_FOLDER .= '<ul></ul>';
                     $HTML_FOLDER .= '</li>';
                 } else {
 
-                    $HTML_FILES .= '<li class="file" data-location="' . $request->folder . '/' . $file . '"><span> <i class="material-icons left">insert_drive_file</i> ' . $file . ' </span></li>';
+                    $HTML_FILES .= '<li class="file" data-location="' . $request->folder . '/' . $file . '" data-file="' . $file . '"><span> <i class="material-icons left">insert_drive_file</i> ' . $file . ' </span></li>';
                 }
             }
         }

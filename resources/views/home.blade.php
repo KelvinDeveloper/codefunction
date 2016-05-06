@@ -117,12 +117,19 @@ CodeMirror.on(modeInput, "keypress", function(e) {
 });
 
 $('.save').click(function(){
+	
+	if ( $('.tabs li.active').data('location').length < 1 ) {
+
+		return false;
+	}
+
 	Load({
 		Type: 'POST',
 		navAjax: false,
-		Url: '/{{ $hash }}/save/{{ $init }}',
+		Url: '/{{ $hash }}/save',
 		Data: {
-			content: editor.getValue()
+			content: editor.getValue(),
+			file: $('.tabs li.active').data('location')
 		}
 	});
 });
@@ -204,7 +211,10 @@ $(document).ready(function(){
 
 		var This = $(this).parent('li');
 
+		This.find('i:first').toggleClass('hidden');
+
 		if ( This.find('ul:first').html() != '' ) {
+
 			This.find('ul:first').toggle();
 			return false;
 		}
@@ -227,19 +237,68 @@ $(document).ready(function(){
 
 function clickOpenFile( This, createAba ) {
 
+	$('.tabs li.active').removeClass('active');
 	codeLoad( This.data('location') );
-	if ( createAba != undefined ) {
-		$('.tabs').append('<li location="' + This.data('location') + '">' + This.text() + ' <i class="material-icons">close</i></li>' );
+	if ( createAba != false ) {
+
+		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '">' + This.data('file') + ' <i class="material-icons">close</i></li>' );
 	}
 }
 
+function closeTab( This ) {
+
+	if ( This.hasClass('active') == false ) {
+
+		This.remove();
+		return false;
+	}
+
+	if ( This.next('li').length > 0 ) {
+
+		This.next('li').click().addClass('active');
+	}
+	else if ( This.prev('li').length > 0 ) {
+
+		This.prev('li').click().addClass('active');
+	} else {
+
+		editor.getDoc().setValue( '' );
+	}
+
+	This.remove();
+}
+
 $(document).on('dblclick', '#navigation-folders ul li.file', function(){
+
+	if ( $('.tabs li[data-location="' + $(this).data('location') + '"]').length > 0 ) {
+
+		$('.tabs li[data-location="' + $(this).data('location') + '"]').click();
+		return false;
+	}
+
 	clickOpenFile( $(this) );
 });
 
 $(document).on('click', '.tabs li', function(){
-	clickOpenFile( $(this) );
-});	
+
+	$('.tabs li.active').removeClass('active');
+	$(this).addClass('active');
+	clickOpenFile( $(this), false );
+});
+
+$(document).on('click', '.tabs li i', function(e){
+
+	e.stopPropagation();
+	closeTab( $(this).parent('li') );
+});
+
+$(document).on('mousedown', '.tabs li', function(e){
+
+	if ( e.which == 2 ) {
+
+		$(this).find('i').click();
+	}
+});
 
 </script>
 <script type="text/javascript" src="js/modules/socket/brain-socket.min.js" />
