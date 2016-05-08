@@ -211,7 +211,10 @@ $(document).ready(function(){
 
 		var This = $(this).parent('li');
 
-		This.find('i:first').toggleClass('hidden');
+		if ( This.hasClass('folder') == true ) {
+
+			This.find('i:first').toggleClass('hidden');
+		}
 
 		if ( This.find('ul:first').html() != '' ) {
 
