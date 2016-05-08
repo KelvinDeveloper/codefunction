@@ -223,6 +223,36 @@ function removeAcentos(varString) {
 	return varRes;
 };
 
+function exec(title, exec) {
+
+	$('body').append('<div id="exec-console">' +
+	'<label for="enter-value"></label>' +
+	'<input type="text" id="enter-value">' +
+	'</div>');
+
+	$('#exec-console input').focus().keyup(function( e ){
+
+		if ( e.keyCode == 13 ) {
+
+			exec(e, $('#exec-console input').val() );
+		}
+	});
+}
+
+function insertHTML( location, file, type ) {
+
+	switch( type ) {
+
+		case 'file': 
+			return '<li class="file" data-location="' + location + '/' + file + '" data-file="' + file + '"><span> <i class="material-icons left">insert_drive_file</i> ' + file + ' </span></li>';
+			break;
+
+		case 'folder':
+			return '<li class="folder" data-location="' + location + '/' + file + '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> ' + file + '</span> <ul> </ul> </li>';
+			break;
+	}
+}
+
 $(document).on('click', 'a:not(.stopFunction), .startFunction', function() {
 
 	var This = $(this);

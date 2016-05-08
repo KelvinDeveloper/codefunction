@@ -39,12 +39,6 @@
 	<li class="refresh tooltipped" data-tooltip="Refresh">
 		<i class="material-icons">refresh</i>
 	</li>
-	
-<!-- 	<li class="new tooltipped" data-tooltip="New document">
-		<a href="/new" class="stopFunction">
-			<i class="material-icons">add</i>
-		</a>
-	</li> -->
 
 	<li class="tooltipped url" data-tooltip="Url">
 		<input value="{{ 'http://' . $_SERVER['HTTP_HOST'] . '/' . $hash }}">
@@ -194,7 +188,10 @@ $(document).ready(function(){
 			return false;
 		}
 
-		$('.save').click();
+		if ( $('.tabs li.active').length > 0 ) {
+
+			$('.save').click();
+		}
 
 		Load({
 			Url: '/register',

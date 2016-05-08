@@ -73,4 +73,37 @@ class CodeController extends Controller
 
         return $HTML_FOLDER . $HTML_FILES;
     }
+
+    /* Create */
+    public function createFolder(Request $request) {
+
+        $return['status'] = false;
+
+        if ( mkdir( $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->folder ) ) {
+
+            $return['status'] = true;
+            chmod(  $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->folder, 0777);
+        } else {
+
+            $return['msg'] = 'Error create folder';
+        }
+
+        return $return;
+    }
+
+    public function createFile(Request $request) {
+
+        $return['status'] = false;
+
+        if ( fopen( $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->file,'w' ) ) {
+
+            $return['status'] = true;
+            chmod(  $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->file, 0777);
+        } else {
+
+            $return['msg'] = 'Error create file';
+        }
+
+        return $return;
+    }
 }

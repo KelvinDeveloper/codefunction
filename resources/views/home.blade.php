@@ -313,15 +313,29 @@ $('#navigation-folders li.folder').rClick({
 			text: 'Create new file',
 			exec: function(This) {
 				
-				Load({
-					Url: '/create/file',
-					DataType: 'json',
-					Type: 'POST',
-					navAjax: false,
-					Data: {
-						'location': This.data('location')
-					}
-				});
+				exec('name file: ', function(e, value) {
+					Load({
+						Url: '/create/file',
+						DataType: 'json',
+						Type: 'POST',
+						navAjax: false,
+						Data: {
+							'location': This.data('location'),
+							'file': value
+						},
+						Success: function(json) {
+
+							if ( json.status == true ) {
+
+								$('#exec-console').remove();
+								$('li[data-location="' + This.data('location') + '"]').find('ul:first').prepend( insertHTML( This.data('location'), value, 'file' ) ).show();
+							} else {
+
+								alert( json.msg );
+							}
+						}
+					});
+				})
 			}
 		}, 
 
@@ -329,17 +343,31 @@ $('#navigation-folders li.folder').rClick({
 
 			icon: '<i class="material-icons">create_new_folder</i>',
 			text: 'Create new folder',
-			exec: function() {
+			exec: function(This) {
 
-				Load({
-					Url: '/create/folder',
-					DataType: 'json',
-					Type: 'POST',
-					navAjax: false,
-					Data: {
-						'location': This.data('location')
-					}
-				});
+				exec('name folder: ', function(e, value) {
+					Load({
+						Url: '/create/folder',
+						DataType: 'json',
+						Type: 'POST',
+						navAjax: false,
+						Data: {
+							'location': This.data('location'),
+							'folder': value
+						},
+						Success: function(json) {
+
+							if ( json.status == true ) {
+
+								$('#exec-console').remove();
+								$('li[data-location="' + This.data('location') + '"]').find('ul:first').prepend( insertHTML( This.data('location'), value, 'folder' ) ).show();
+							} else {
+
+								alert( json.msg );
+							}
+						}
+					});
+				})
 			}
 		},
 
@@ -401,37 +429,65 @@ $('#navigation-folders').rClick({
 
 		CreateFile : {
 
-			icon: '<i class="material-icons left">insert_drive_file</i>',
+			icon: '<i class="material-icons">insert_drive_file</i>',
 			text: 'Create new file',
-			exec: function() {
+			exec: function(This) {
+				
+				exec('name file: ', function(e, value) {
+					Load({
+						Url: '/create/file',
+						DataType: 'json',
+						Type: 'POST',
+						navAjax: false,
+						Data: {
+							'location': '/',
+							'file': value
+						},
+						Success: function(json) {
 
-				Load({
-					Url: '/create/file',
-					DataType: 'json',
-					Type: 'POST',
-					navAjax: false,
-					Data: {
-						'location': '/'
-					}
-				});
+							if ( json.status == true ) {
+
+								$('#exec-console').remove();
+								$('#navigation-folders ul > ul').append( insertHTML( '/', value, 'file' ) );
+							} else {
+
+								alert( json.msg );
+							}
+						}
+					});
+				})
 			}
 		}, 
 
 		CreateFolder : {
 
-			icon: '<i class="material-icons left">create_new_folder</i>',
+			icon: '<i class="material-icons">create_new_folder</i>',
 			text: 'Create new folder',
-			exec: function() {
+			exec: function(This) {
 
-				Load({
-					Url: '/create/folder',
-					DataType: 'json',
-					Type: 'POST',
-					navAjax: false,
-					Data: {
-						'location': '/'
-					}
-				});
+				exec('name folder: ', function(e, value) {
+					Load({
+						Url: '/create/folder',
+						DataType: 'json',
+						Type: 'POST',
+						navAjax: false,
+						Data: {
+							'location': '/',
+							'folder': value
+						},
+						Success: function(json) {
+
+							if ( json.status == true ) {
+
+								$('#exec-console').remove();
+								$('#navigation-folders ul > ul').append( insertHTML( '/', value, 'folder' ) );
+							} else {
+
+								alert( json.msg );
+							}
+						}
+					});
+				})
 			}
 		}
 	}

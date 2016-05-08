@@ -87,3 +87,6 @@ $app->post('/{hash}/save/theme', 'CodeController@saveTheme');
 $app->post('/{hash}/save/syntax', 'CodeController@saveSyntax');
 $app->post('/{hash}/load', 'CodeController@load');
 $app->post('/{hash}/save', 'CodeController@saveFile');
+
+$app->post('/create/folder', 'CodeController@createFolder');
+$app->post('/create/file', 'CodeController@createFile');
