@@ -284,9 +284,8 @@ $(document).on('dblclick', '#navigation-folders ul li.file', function(){
 
 $(document).on('click', '.tabs li', function(){
 
-	$('.tabs li.active').removeClass('active');
-	$(this).addClass('active');
 	clickOpenFile( $(this), false );
+	$(this).addClass('active');
 });
 
 $(document).on('click', '.tabs li i', function(e){

@@ -15,7 +15,7 @@ class Codes extends Migration
         Schema::create("codes", function (Blueprint $table) {
             $table->increments("id");
             $table->string("syntax", 100)->default('plain text');
-            $table->string("theme",  100)->default('railscasts');
+            $table->string("theme",  100)->default('ambiance');
             $table->string("hash",  50);
 
             $table->timestamps();
