@@ -300,6 +300,143 @@ $(document).on('mousedown', '.tabs li', function(e){
 	}
 });
 
+// rClick
+$('#navigation-folders li.folder').rClick({
+
+	id: 'rClick-navigation-folders-li-folder',
+
+	Menu: {
+
+		CreateFile : {
+
+			icon: '<i class="material-icons">insert_drive_file</i>',
+			text: 'Create new file',
+			exec: function(This) {
+				
+				Load({
+					Url: '/create/file',
+					DataType: 'json',
+					Type: 'POST',
+					navAjax: false,
+					Data: {
+						'location': This.data('location')
+					}
+				});
+			}
+		}, 
+
+		CreateFolder : {
+
+			icon: '<i class="material-icons">create_new_folder</i>',
+			text: 'Create new folder',
+			exec: function() {
+
+				Load({
+					Url: '/create/folder',
+					DataType: 'json',
+					Type: 'POST',
+					navAjax: false,
+					Data: {
+						'location': This.data('location')
+					}
+				});
+			}
+		},
+
+		RenameFolder : {
+
+			icon: '<i class="material-icons">mode_edit</i>',
+			text: 'Rename folder',
+			exec: function() {
+
+				alert('renomeia pasta');
+			}
+		},
+
+		DeleteFolder : {
+
+			icon: '<i class="material-icons">close</i>',
+			text: 'Delete folder',
+			exec: function() {
+
+				alert('deleta folder');
+			}
+		}
+	}
+});
+
+$('#navigation-folders li.file').rClick({
+
+	id: 'rClick-navigation-folders-li-file',
+
+	Menu: {
+
+		RenameFile : {
+
+			icon: '<i class="material-icons left">mode_edit</i>',
+			text: 'Rename file',
+			exec: function() {
+
+				alert('renomeia arquivo');
+			}
+		},
+
+		DeleteFile : {
+
+			icon: '<i class="material-icons left">close</i>',
+			text: 'Delete file',
+			exec: function() {
+
+				alert('deleta arquivo');
+			}
+		}
+	}
+});
+
+$('#navigation-folders').rClick({
+
+	id: 'rClick-navigation-folders',
+
+	Menu: {
+
+		CreateFile : {
+
+			icon: '<i class="material-icons left">insert_drive_file</i>',
+			text: 'Create new file',
+			exec: function() {
+
+				Load({
+					Url: '/create/file',
+					DataType: 'json',
+					Type: 'POST',
+					navAjax: false,
+					Data: {
+						'location': '/'
+					}
+				});
+			}
+		}, 
+
+		CreateFolder : {
+
+			icon: '<i class="material-icons left">create_new_folder</i>',
+			text: 'Create new folder',
+			exec: function() {
+
+				Load({
+					Url: '/create/folder',
+					DataType: 'json',
+					Type: 'POST',
+					navAjax: false,
+					Data: {
+						'location': '/'
+					}
+				});
+			}
+		}
+	}
+});
+
 </script>
 <script type="text/javascript" src="js/modules/socket/brain-socket.min.js" />
 @endsection

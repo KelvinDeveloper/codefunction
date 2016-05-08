@@ -6,6 +6,7 @@
         <script type="text/javascript" src="/js/base/jquery.min.js"></script>
         <script type="text/javascript" src="/js/base/FormBuilder-min.js"></script>
         <script type="text/javascript" src="/js/base/Functions-min.js"></script>
+        <script type="text/javascript" src="/js/plugins/rClick-min.js"></script>
 
         <link rel="stylesheet" type="text/css" href="/css/plugins/materialize.css" />
         <link rel="stylesheet" type="text/css" href="/css/base/layout.css" />
