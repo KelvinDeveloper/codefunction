@@ -54,6 +54,9 @@ $app->get('/{hash}', function ( $hash ) use ($app) {
 		return redirect('/new');
 	}
 
+	setcookie('hash', $hash);
+	$_COOKIE['hash'] = $hash;
+
 	$folder = $_SERVER['DOCUMENT_ROOT'] . '/scripts/' . $hash . '/';
 
 	if (! file_exists( $folder ) ) {
