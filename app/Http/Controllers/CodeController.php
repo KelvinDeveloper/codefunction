@@ -20,24 +20,24 @@ class CodeController extends Controller
         $this->folder = $_SERVER['DOCUMENT_ROOT'] . '/scripts/';
     }
 
-    public function saveTheme(Request $request, $hash)
+    public function saveTheme(Request $request)
     {
-    	$query = app('db')->update( " UPDATE codes SET theme = '" . $request->theme . "' WHERE hash = '" . $hash . "' " );
+    	$query = app('db')->update( " UPDATE codes SET theme = '" . $request->theme . "' WHERE hash = '" . $_COOKIE['hash'] . "' " );
     }
 
-    public function saveSyntax(Request $request, $hash)
+    public function saveSyntax(Request $request)
     {
-    	$query = app('db')->update( " UPDATE codes SET syntax = '" . $request->syntax . "' WHERE hash = '" . $hash . "' " );
+    	$query = app('db')->update( " UPDATE codes SET syntax = '" . $request->syntax . "' WHERE hash = '" . $_COOKIE['hash'] . "' " );
     }
 
-    public function load(Request $request, $hash)
+    public function load(Request $request)
     {
         return array( 'Code' => file_get_contents( $this->folder . $_COOKIE['hash'] . '/' . $request->file ), 'info' => pathinfo( $this->folder . $_COOKIE['hash'] . '/' . $request->file ) );
     }
 
-    public function saveFile(Request $request, $hash)
+    public function saveFile(Request $request)
     {
-        $location = $this->folder . $hash . $request->file;
+        $location = $this->folder . $_COOKIE['hash'] . $request->file;
 
         $create_file = fopen( $location . '.tmp', 'w' );
         chmod( $location . '.tmp', 0777 );
@@ -61,12 +61,12 @@ class CodeController extends Controller
 
                 if ( is_dir( '../public/scripts/' . $folder . '/' . $file ) ) {
 
-                    $HTML_FOLDER .= '<li class="folder" data-location="' . $request->folder . '/' . $file . '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> ' . $file . '</span>';
+                    $HTML_FOLDER .= '<li class="folder" data-location="' . $request->folder . '" data-folder="' . $file . '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> <div class="nameFile">' . $file . '</div> </span>';
                         $HTML_FOLDER .= '<ul></ul>';
                     $HTML_FOLDER .= '</li>';
                 } else {
 
-                    $HTML_FILES .= '<li class="file" data-location="' . $request->folder . '/' . $file . '" data-file="' . $file . '"><span> <i class="material-icons left">insert_drive_file</i> ' . $file . ' </span></li>';
+                    $HTML_FILES .= '<li class="file" data-location="' . $request->folder . '" data-file="' . $file . '"><span> <i class="material-icons left">insert_drive_file</i> <div class="nameFile">' . $file . '</div> </span></li>';
                 }
             }
         }
@@ -103,6 +103,85 @@ class CodeController extends Controller
 
             $return['msg'] = 'Error create file';
         }
+
+        return $return;
+    }
+
+    public function renameFile(Request $request) {
+
+        $return['status'] = false;
+
+        if ( rename( $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->file, $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->newName ) ) {
+
+            $return['status'] = true;
+            $return['file']   = $request->file;
+            $return['location'] = $request->location;
+            $return['newName'] = $request->newName;
+        }
+
+        return $return;
+    }
+
+    public function renameFolder(Request $request) {
+
+        $return['status'] = false;
+
+        if ( rename( $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->folder, $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->newName ) ) {
+
+            $return['status'] = true;
+            $return['folder']   = $request->folder;
+            $return['location'] = $request->location;
+            $return['newName'] = $request->newName;
+        }
+
+        return $return;
+    }
+
+    public function deleteFile(Request $request) {
+
+        $return['status'] = false;
+
+        if ( unlink( $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->file ) ) {
+
+            $return['status'] = true;
+            $return['file']   = $request->file;
+            $return['location'] = $request->location;
+        } else {
+
+            $return['status'] = false;
+        }
+
+        return $return;
+    }
+
+    public function deleteAllFiles( $folder ) {
+
+        foreach (scandir( $folder ) as $file ) {
+            
+            if ( $file != '..' && $file != '.' ) {
+
+                if ( is_dir( $folder . '/' . $file ) ) {
+
+                    $this->deleteAllFiles( $folder . '/' . $file );
+                    rmdir( $folder . '/' . $file );
+                } else {
+
+                    unlink( $folder . '/' . $file );
+                }
+            }
+        }
+    }
+
+    public function deleteFolder(Request $request) {
+
+        $folder = $this->folder . $_COOKIE['hash'] . $request->location . '/' . $request->folder;
+        $this->deleteAllFiles( $folder );
+
+        rmdir( $folder );
+
+        $return['status'] = true;
+        $return['folder']   = $request->folder;
+        $return['location'] = $request->location;
 
         return $return;
     }

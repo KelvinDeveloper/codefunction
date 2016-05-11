@@ -150,12 +150,19 @@ function initModal(config) {
 	: '' ) +
 	'</div>');
 
-  	Load({ 	Url: config.url,
-  			navAjax: false,
-			data: {
-			target: config.id,
-  		},
-  	}, '#content-modal' + config.id );
+
+	if ( config.url !== false ) {
+
+	  	Load({ 	Url: config.url,
+	  			navAjax: false,
+				data: {
+				target: config.id,
+	  		},
+	  	}, '#content-modal' + config.id );
+	} else if ( config.content != undefined ) {
+
+		$('#content-modal' + config.id).html( config.content );
+	}
  
  	$('#modal' + config.id).openModal(config.config);
 
@@ -223,11 +230,13 @@ function removeAcentos(varString) {
 	return varRes;
 };
 
-function exec(title, exec) {
+function exec(title, exec, value) {
+
+	$('#exec-console').remove();
 
 	$('body').append('<div id="exec-console">' +
-	'<label for="enter-value"></label>' +
-	'<input type="text" id="enter-value">' +
+	'<label for="enter-value">' + title + '</label>' +
+	'<input type="text" id="enter-value" value="' + ( value != undefined ? value : '' ) + '">' +
 	'</div>');
 
 	$('#exec-console input').focus().keyup(function( e ){
@@ -244,13 +253,33 @@ function insertHTML( location, file, type ) {
 	switch( type ) {
 
 		case 'file': 
-			return '<li class="file" data-location="' + location + '/' + file + '" data-file="' + file + '"><span> <i class="material-icons left">insert_drive_file</i> ' + file + ' </span></li>';
+			return '<li class="file" data-location="' + location + '" data-file="' + file + '"><span> <i class="material-icons left">insert_drive_file</i> <div class="nameFile">' + file + ' </div></span></li>';
 			break;
 
 		case 'folder':
-			return '<li class="folder" data-location="' + location + '/' + file + '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> ' + file + '</span> <ul> </ul> </li>';
+			return '<li class="folder" data-location="' + location + '" data-folder="' + file + '"><span> <i class="material-icons left hidden">arrow_drop_down</i> <i class="material-icons left">folder</i> <div class="nameFile">' + file + ' </div></span> <ul> </ul> </li>';
 			break;
 	}
+}
+
+function Confirm( Content, btnSuccess, Success ) {
+
+	initModal({
+
+		id: 			( $('.modal').length + 1 ),
+		footerFixed: 	'modal-fixed-footer',
+		size: 			'small',
+		url: 			false,
+		shadow: 		false,
+		content: 		Content
+	});
+
+	$('#modal' + ( $('.modal').length ) + ' .modal-footer' ).html(
+	'<button class="btn rigth ConfirmSuccess"><i class="material-icons left">delete_forever</i> ' + btnSuccess + '</button>' +
+	'<button class="btn btn-silver left modal-close"><i class="material-icons left">cancel</i> Cancel</button>'
+	);
+
+	$('#modal' + ( $('.modal').length ) + ' .ConfirmSuccess').click(Success);
 }
 
 $(document).on('click', 'a:not(.stopFunction), .startFunction', function() {

@@ -86,10 +86,16 @@ $app->get('/{hash}', function ( $hash ) use ($app) {
     return view('/home', ['hash' => $hash, 'code' => $code[0], 'files' => $files, 'init' => $files[0] ] );
 });
 
-$app->post('/{hash}/save/theme', 'CodeController@saveTheme');
-$app->post('/{hash}/save/syntax', 'CodeController@saveSyntax');
-$app->post('/{hash}/load', 'CodeController@load');
-$app->post('/{hash}/save', 'CodeController@saveFile');
+$app->post('/save/theme', 'CodeController@saveTheme');
+$app->post('/save/syntax', 'CodeController@saveSyntax');
+$app->post('/load', 'CodeController@load');
+$app->post('/save', 'CodeController@saveFile');
 
 $app->post('/create/folder', 'CodeController@createFolder');
 $app->post('/create/file', 'CodeController@createFile');
+
+$app->post('/rename/folder', 'CodeController@renameFolder');
+$app->post('/rename/file', 'CodeController@renameFile');
+
+$app->post('/delete/folder', 'CodeController@deleteFolder');
+$app->post('/delete/file', 'CodeController@deleteFile');
