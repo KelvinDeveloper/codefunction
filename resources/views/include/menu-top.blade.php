@@ -39,6 +39,18 @@
 	<li class="refresh tooltipped" data-tooltip="Refresh">
 		<i class="material-icons">refresh</i>
 	</li>
+<!-- 
+	<li class="tooltipped git" data-tooltip="Clone repository">
+		<i class="material-icons">build</i>
+		<ul>
+			<li>
+				<label for="clone-git">HTTPS repository clone</label>
+				<input id="clone-git" name="clone-git"/>
+
+				<button class="btn"><i class="material-icons left">compare_arrows</i> Clone!</button>
+			</li>
+		</ul>
+	</li> -->
 
 	<li class="tooltipped url" data-tooltip="Url">
 		<input value="{{ 'http://' . $_SERVER['HTTP_HOST'] . '/' . $hash }}">

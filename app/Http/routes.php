@@ -99,3 +99,5 @@ $app->post('/rename/file', 'CodeController@renameFile');
 
 $app->post('/delete/folder', 'CodeController@deleteFolder');
 $app->post('/delete/file', 'CodeController@deleteFile');
+
+$app->post('/git/clone', 'GitController@gitClone');

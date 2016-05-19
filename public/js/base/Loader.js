@@ -91,10 +91,10 @@ function clickOpenFile( This, createAba ) {
 	}
 
 	$('.tabs li.active').removeClass('active');
-	codeLoad( This.data('location') );
+	codeLoad( This.data('location') + This.data('file') );
 	if ( createAba != false ) {
 
-		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '">' + This.data('file') + ' <i class="material-icons">close</i></li>' );
+		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '" data-file="' + This.data('file') + '">' + This.data('file') + ' <i class="material-icons">close</i></li>' );
 	}
 }
 
@@ -125,7 +125,32 @@ function closeTab( This ) {
 // Salva arquivo
 $('.save').click(function(){
 	
-	if ( $('.tabs li.active').data('location').length < 1 ) {
+	if ( $('.tabs li.active').length < 1 ) {
+
+		exec('name file: ', function(e, value) {
+			Load({
+				Url: '/create/file',
+				DataType: 'json',
+				Type: 'POST',
+				navAjax: false,
+				Data: {
+					'location': '/',
+					'file': value
+				},
+				Success: function(json) {
+
+					if ( json.status == true ) {
+
+						$('#exec-console').remove();
+						$('.tabs li.active').removeClass('active');
+						$('#navigation-folders ul > ul').append( insertHTML( '/', value, 'file' ) );
+
+						$('.tabs').append('<li class="active" data-location="/" data-file="' + value + '">' + value + ' <i class="material-icons">close</i></li>' );
+						$('.save').click();
+					}
+				}
+			});
+		});
 
 		return false;
 	}
@@ -136,7 +161,7 @@ $('.save').click(function(){
 		Url: '/save',
 		Data: {
 			content: editor.getValue(),
-			file: $('.tabs li.active').data('location')
+			file: $('.tabs li.active').data('location') + $('.tabs li.active').data('file')
 		}
 	});
 });
@@ -176,7 +201,6 @@ $(document).ready(function(){
 	changeTheme( DefaultTheme );
 
 	$('select').material_select();
-	codeLoad();
 
 	// Socket
 	window.app = {};
@@ -343,7 +367,7 @@ $('#navigation-folders li.folder').rClick({
 							if ( json.status == true ) {
 
 								$('#exec-console').remove();
-								$('li[data-location="' + This.data('location') + '"]').find('ul:first').prepend( insertHTML( This.data('location') + '/' + This.data('folder'), value, 'folder' ) ).show();
+								This.find('ul:first').prepend( insertHTML( This.data('location') + '/' + This.data('folder'), value, 'folder' ) ).show();
 							} else {
 
 								alert( json.msg );
