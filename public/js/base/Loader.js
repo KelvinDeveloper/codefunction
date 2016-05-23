@@ -91,7 +91,7 @@ function clickOpenFile( This, createAba ) {
 	}
 
 	$('.tabs li.active').removeClass('active');
-	codeLoad( This.data('location') + This.data('file') );
+	codeLoad( This.data('location') + '/' + This.data('file') );
 	if ( createAba != false ) {
 
 		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '" data-file="' + This.data('file') + '">' + This.data('file') + ' <i class="material-icons">close</i></li>' );
@@ -161,7 +161,7 @@ $('.save').click(function(){
 		Url: '/save',
 		Data: {
 			content: editor.getValue(),
-			file: $('.tabs li.active').data('location') + $('.tabs li.active').data('file')
+			file: $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file')
 		}
 	});
 });
