@@ -278,9 +278,9 @@ $(document).ready(function(){
 
 $(document).on('dblclick', '#navigation-folders ul li.file', function(){
 
-	if ( $('.tabs li[data-location="' + $(this).data('location') + '"]').length > 0 ) {
+	if ( $('.tabs li[data-location="' + $(this).data('location') +  '/' + $(this).data('file') + '"]').length > 0 ) {
 
-		$('.tabs li[data-location="' + $(this).data('location') + '"]').click();
+		$('.tabs li[data-location="' + $(this).data('location') + '/' + $(this).data('file') + '"]').click();
 		return false;
 	}
 
