@@ -272,7 +272,68 @@ ul.menu-top {
 	background-color: #333;
 	overflow: auto;
 
-	ul {
+	ul#bar-navigation {
+		position: absolute;
+		bottom: 0;
+		background-color: #222;
+		width: 100%;
+		color: @SilverColorHover;
+		padding: 0;
+		margin: 0;
+		height: 50px;
+
+			li {
+				display: inline-block;
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			li:hover, li.active {
+
+				background-color: #333;
+			}
+	}
+
+	ul#chat {
+		display: none;
+
+		.messages {
+			height: 82%;
+
+			li {
+
+				width: 100%;
+				padding: 5px;
+				display: inline-block;
+				span {
+					background-color: @SilverColorHover;
+					padding: 5px;
+					float: left;
+				}
+			}
+
+			li.me span {
+				background-color: @PomegranateColor;
+				color: #fff;
+				float: right;
+			}
+		}
+
+		textarea {
+			background-color: @SilverColor;
+			border: none;
+			position: absolute;
+			bottom: 50px;
+			height: 70px;
+		}
+	}
+
+	ul:not(bar-navigation) {
+
+
+	}
+
+	ul#files {
 		width: auto;
 		max-width: 1000px;
 		margin: 0;

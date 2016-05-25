@@ -160,7 +160,7 @@ $('.save').click(function(e){
 
 						$('#exec-console').remove();
 						$('.tabs li.active').removeClass('active');
-						$('#navigation-folders ul > ul').append( insertHTML( '/', value, 'file' ) );
+						$('#navigation-folders ul#files > ul').append( insertHTML( '/', value, 'file' ) );
 
 						$('.tabs').append('<li class="active" data-location="/" data-file="' + value + '">' + value + ' <i class="material-icons">close</i></li>' );
 						$('.save').click();
@@ -225,31 +225,6 @@ $(document).ready(function(){
 
 	$('select').material_select();
 
-	// Socket
-	window.app = {};
-
-	app.BrainSocket = new BrainSocket(
-		new WebSocket('ws://' + Server + ':8080'),
-		new BrainSocketPubSub()
-	);
-
-	app.BrainSocket.Event.listen('app.init', function(msg)
-	{
-		if ( msg.client.data.total > 1 ) {
-
-			$('ul.menu-top li.visitors span.count').text( msg.client.data.total );
-			
-		}
-	});
-
-	setTimeout(function(){
-		app.BrainSocket.message('app.init', {
-			hash: '{{ $hash }}',
-		});
-	}, 500);
-
-	// Ends Socket
-
 	$(document).on('keypress', '.CodeMirror.blocked', function(e){
 		return false;
 	});
@@ -266,9 +241,9 @@ $(document).ready(function(){
 		Data: {
 			folder: '/'
 		}
-	}, '#navigation-folders ul ul');
+	}, '#navigation-folders ul#files ul');
 
-	$(document).on('click', '#navigation-folders ul li.folder span', function(){
+	$(document).on('click', '#navigation-folders ul#files li.folder span', function(){
 
 		var This = $(this).parent('li');
 
@@ -299,7 +274,7 @@ $(document).ready(function(){
 
 });
 
-$(document).on('dblclick', '#navigation-folders ul li.file', function(){
+$(document).on('dblclick', '#navigation-folders ul#files li.file', function(){
 
 	if ( $('.tabs li[data-location="' + $(this).data('location') + '"][data-file="' + $(this).data('file') + '"]').length > 0 ) {
 		
@@ -562,7 +537,7 @@ $('#navigation-folders').rClick({
 							if ( json.status == true ) {
 
 								$('#exec-console').remove();
-								$('#navigation-folders ul > ul').append( insertHTML( '/', value, 'file' ) );
+								$('#navigation-folders ul#files > ul').append( insertHTML( '/', value, 'file' ) );
 							} else {
 
 								alert( json.msg );
@@ -595,12 +570,12 @@ $('#navigation-folders').rClick({
 
 								$('#exec-console').remove();
 
-								if ( $('#navigation-folders ul > ul li.folder').length > 0 ) {
+								if ( $('#navigation-folders ul#files > ul li.folder').length > 0 ) {
 									
-									$('#navigation-folders ul > ul li.folder:last').after( insertHTML( '/', value, 'folder' ) );
+									$('#navigation-folders ul#files > ul li.folder:last').after( insertHTML( '/', value, 'folder' ) );
 								} else {
 
-									$('#navigation-folders ul > ul').prepend( insertHTML( '/', value, 'folder' ) );
+									$('#navigation-folders ul#files > ul').prepend( insertHTML( '/', value, 'folder' ) );
 								}
 								
 							} else {
@@ -666,7 +641,7 @@ $('.CodeMirror').keydown(function(e){
 });
 
 $(document).click(function(){
-	$('.block-selection li ul, .menu-top li ul, .block-selection').hide();
+	$('.block-selection li ul#files, .menu-top li ul, .block-selection').hide();
 });
 
 $(document).ready(function(){
@@ -799,5 +774,14 @@ $(document).ready(function(){
 				theme: $(this).text().toLowerCase()
 			}
 		});
+	});
+
+	$('#bar-navigation li').click(function(){
+
+		$('#bar-navigation li.active').removeClass('active');
+		$(this).addClass('active');
+
+		$('#navigation-folders > ul:not(#bar-navigation)').hide();
+		$('#navigation-folders ul#' + $(this).attr('for')).show();
 	});
 });

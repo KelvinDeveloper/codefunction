@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $user = User::where( 'email', $request->email )->where( 'password', md5( $request->password ) )->first(['name', 'email', 'hash']);
+        $user = User::where( 'email', $request->email )->where( 'password', md5( $request->password ) )->first(['id', 'name', 'email', 'hash']);
 
         if ( $user == null ) {
 

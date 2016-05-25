@@ -1,3 +1,26 @@
+function Chat() {
+
+	this.receive = function(data) {
+
+		if ( Token == data.token ) {
+
+			return false;
+		}
+
+		if ( Hash == data.hash ) {
+
+			this.html( '', data.message )
+		}
+	}
+
+	this.html = function(_class, data) {
+
+		$('#chat > .messages').append('<li class="' + _class + '"> <span>' + data + '</span> </li>');
+	}
+}
+
+var Chat = new Chat();
+
 function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 	this.connection = WebSocketConnection;
 	this.Event = BrainSocketPubSub;
@@ -24,7 +47,16 @@ function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 	}
 
 	this.connection.onmessage = function(e) {
+		console.log( e );
+		var object = JSON.parse(e.data);
 		this.digestMessage(e.data);
+
+		switch( object.client.event ) {
+
+			case 'chat.send':
+				Chat.receive(object.client.data);
+				break;
+		}
 	}
 
 	this.success = function(data){
@@ -47,6 +79,38 @@ function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 
 		this.connection.send(JSON.stringify(json));
 	}
-
-
 }
+
+window.app = {};
+
+app.BrainSocket = new BrainSocket(
+	new WebSocket('ws://' + Server + ':8080'),
+	new BrainSocketPubSub()
+);
+
+$(document).ready(function(){
+	setTimeout(function(){
+		app.BrainSocket.message('app.init', {
+			hash: Hash,
+			visitor: Visitor,
+			user: User
+		});
+	}, 500);
+});
+
+// Chat
+$('#chat textarea').keyup(function(e){
+
+	if ( e.keyCode == 13 ) {
+
+		Chat.html('me', $(this).val() );
+		app.BrainSocket.message('chat.send', {
+		  message: $(this).val(),
+		  hash: Hash,
+		  token: Token
+		});
+
+		$(this).val('');
+		return false;
+	}
+});
