@@ -19,7 +19,7 @@ class SynchronizationController implements MessageComponentInterface {
 
 	public function onOpen(ConnectionInterface $conn) {
 		echo "Connection Established! \n";
-		app('db')->insert( " INSERT IGNORE INTO codefunction.visitors (visitor) VALUES ( '" . $conn->resourceId . "' ) " );
+		app('db')->insert( " INSERT IGNORE INTO " . config('database.connections.mysql.database') . ".visitors (visitor) VALUES ( '" . $conn->resourceId . "' ) " );
 		$this->clients->attach($conn);
 	}
 
@@ -35,7 +35,7 @@ class SynchronizationController implements MessageComponentInterface {
 
 	public function onClose(ConnectionInterface $conn) {
 
-		app('db')->delete( " DELETE FROM codefunction.visitors WHERE visitor = '" . $conn->resourceId . "' " );
+		app('db')->delete( " DELETE FROM " . config('database.connections.mysql.database') . ".visitors WHERE visitor = '" . $conn->resourceId . "' " );
 
 		$this->clients->detach($conn);
 		echo "Connection {$conn->resourceId} has disconnected\n";

@@ -47,7 +47,6 @@ function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 	}
 
 	this.connection.onmessage = function(e) {
-		console.log( e );
 		var object = JSON.parse(e.data);
 		this.digestMessage(e.data);
 
