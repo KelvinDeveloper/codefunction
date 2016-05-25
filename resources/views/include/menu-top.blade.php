@@ -15,7 +15,7 @@
 				<button class="btn right btn-login"><i class="material-icons left">https</i> Login</button>
 			</li>
 			<br>
-			<li><button class="btn-facebook right">Login Facebook</button></li><br>
+			<!-- <li><button class="btn-facebook right">Login Facebook</button></li><br> -->
 			@else 
 			<li><input value="{{ $_COOKIE['name'] }}"></li>
 			<li><a href="/logout" class="stopFunction btn right">Logout</a> <br></li>

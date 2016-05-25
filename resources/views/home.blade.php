@@ -18,7 +18,7 @@
 	</ul>
 </div>
 
-<ul id="guard-codes"></ul>
+<noscript id="guard-codes"></noscript>
 
 <script type="text/javascript">
 var Init = '{{ $init }}',

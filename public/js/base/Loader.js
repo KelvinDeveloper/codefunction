@@ -82,7 +82,7 @@ function codeLoad( file ) {
 
 			if ( $('#guard-codes li[data-location="' + file + '"]').length < 1 ) {
 
-				$('#guard-codes').prepend('<li data-location="' + file + '">' + json.Code + '</li>');
+				$('#guard-codes').prepend('<li data-location="' + file + '"> <textarea>' + json.Code + '</textarea> </li>');
 				return false
 			}
 		}
@@ -100,7 +100,7 @@ function clickOpenFile( This, createAba ) {
 	}
 
 	if ( $('#guard-codes li[data-location="' + This.data('location') + '/' + This.data('file') + '"]').length > 0 ) {
-		editor.getDoc().setValue( $('#guard-codes li[data-location="' + This.data('location') + '/' + This.data('file') + '"]').html() );
+		editor.getDoc().setValue( $('#guard-codes li[data-location="' + This.data('location') + '/' + This.data('file') + '"] textarea').val() );
 		return false;
 	}
 
@@ -312,10 +312,10 @@ $(document).on('dblclick', '#navigation-folders ul li.file', function(){
 
 $(document).on('click', '.tabs li', function(){
 
-	$('#guard-codes li[data-location="' + $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file') + '"]').html( editor.getValue() );
+	$('#guard-codes li[data-location="' + $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file') + '"] textarea').val( editor.getValue() );
 	$('.tabs li.active').removeClass('active');
 	$(this).addClass('active');
-	editor.getDoc().setValue( $('#guard-codes li[data-location="' + $(this).data('location') + '/' + $(this).data('file') + '"]').html() );
+	editor.getDoc().setValue( $('#guard-codes li[data-location="' + $(this).data('location') + '/' + $(this).data('file') + '"] textarea').val() );
 	// clickOpenFile( $(this), false );
 	// 
 });
