@@ -47,6 +47,7 @@ function changeTheme(value) {
 
 // Carrega um arquivo
 function codeLoad( file ) {
+
 	Load({
 		Type: 'POST',
 		DataType: 'json',
@@ -78,6 +79,12 @@ function codeLoad( file ) {
 
 				changeSyntax( newSyntax );
 			}
+
+			if ( $('#guard-codes li[data-location="' + file + '"]').length < 1 ) {
+
+				$('#guard-codes').prepend('<li data-location="' + file + '">' + json.Code + '</li>');
+				return false
+			}
 		}
 	});
 }
@@ -85,21 +92,31 @@ function codeLoad( file ) {
 // Abre um arquivo (navegação)
 function clickOpenFile( This, createAba ) {
 
-	if ( $('.tabs li.active').length > 0 ) {
-
-		$('.save').click();
-	}
-
 	$('.tabs li.active').removeClass('active');
-	codeLoad( This.data('location') + '/' + This.data('file') );
+
 	if ( createAba != false ) {
 
-		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '" data-file="' + This.data('file') + '">' + This.data('file') + ' <i class="material-icons">close</i></li>' );
+		$('.tabs').append('<li class="active" data-location="' + This.data('location') + '" data-file="' + This.data('file') + '"><i class="material-icons">save</i> ' + This.data('file') + ' <i class="material-icons close">close</i></li>' );
 	}
+
+	if ( $('#guard-codes li[data-location="' + This.data('location') + '/' + This.data('file') + '"]').length > 0 ) {
+		editor.getDoc().setValue( $('#guard-codes li[data-location="' + This.data('location') + '/' + This.data('file') + '"]').html() );
+		return false;
+	}
+
+	codeLoad( This.data('location') + '/' + This.data('file') );
 }
 
 // Fecha uma aba
 function closeTab( This ) {
+
+	if ( This.hasClass('pendent-save') == true ) {
+
+		if (! confirm('Are you sure you want to close the file without saving?') ) {
+
+			return false;
+		}
+	}
 
 	if ( This.hasClass('active') == false ) {
 
@@ -123,7 +140,7 @@ function closeTab( This ) {
 }
 
 // Salva arquivo
-$('.save').click(function(){
+$('.save').click(function(e){
 	
 	if ( $('.tabs li.active').length < 1 ) {
 
@@ -162,6 +179,10 @@ $('.save').click(function(){
 		Data: {
 			content: editor.getValue(),
 			file: $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file')
+		},
+		Success: function() {
+
+			$('.tabs li.active').removeClass('pendent-save');
 		}
 	});
 });
@@ -184,7 +205,9 @@ $(window).bind('keydown', function(event) {
 
         case 's':
             event.preventDefault();
+            event.stopPropagation();
             $('.save').click();
+            return false;
             break;
 
         case 'l':
@@ -279,8 +302,8 @@ $(document).ready(function(){
 $(document).on('dblclick', '#navigation-folders ul li.file', function(){
 
 	if ( $('.tabs li[data-location="' + $(this).data('location') + '"][data-file="' + $(this).data('file') + '"]').length > 0 ) {
-
-		$('.tabs li[data-location="' + $(this).data('location') + '/' + $(this).data('file') + '"]').click();
+		
+		$('.tabs li[data-location="' + $(this).data('location') + '"][data-file="' + $(this).data('file') + '"]').click();
 		return false;
 	}
 
@@ -289,11 +312,15 @@ $(document).on('dblclick', '#navigation-folders ul li.file', function(){
 
 $(document).on('click', '.tabs li', function(){
 
-	clickOpenFile( $(this), false );
+	$('#guard-codes li[data-location="' + $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file') + '"]').html( editor.getValue() );
+	$('.tabs li.active').removeClass('active');
 	$(this).addClass('active');
+	editor.getDoc().setValue( $('#guard-codes li[data-location="' + $(this).data('location') + '/' + $(this).data('file') + '"]').html() );
+	// clickOpenFile( $(this), false );
+	// 
 });
 
-$(document).on('click', '.tabs li i', function(e){
+$(document).on('click', '.tabs li i.close', function(e){
 
 	e.stopPropagation();
 	closeTab( $(this).parent('li') );
@@ -614,6 +641,27 @@ $(document).keyup(function(e){
 
 		$(document).click();
 		$('#exec-console').remove();
+	}
+});
+
+$('.CodeMirror').keydown(function(e){
+
+	if ( '9,20,16,17,18,2,91,8,121,120,119,118,123,122,37,39,40,38'.indexOf(e.keyCode) < 0 && e.keyCode !== undefined ) {
+
+		if ( ( e.ctrlKey === true && e.keyCode == 83 ) ) {
+
+			$('.tabs li.active').removeClass('pendent-save');
+			return false;
+		}
+
+		if ( 
+			( e.ctrlKey === true && e.keyCode == 65 ) ||
+			( e.ctrlKey === true && e.keyCode == 88 ) ||
+			( e.ctrlKey === true && e.keyCode == 67 )  ) {
+			return false;
+		}
+
+		$('.tabs li.active').addClass('pendent-save');
 	}
 });
 

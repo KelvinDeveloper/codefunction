@@ -18,6 +18,8 @@
 	</ul>
 </div>
 
+<ul id="guard-codes"></ul>
+
 <script type="text/javascript">
 var Init = '{{ $init }}',
 	DefaultSyntax = '{{ $code->syntax }}',
