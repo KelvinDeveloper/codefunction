@@ -310,7 +310,7 @@ $(document).on('mousedown', '.tabs li', function(e){
 });
 
 // rClick
-$('#navigation-folders li.folder').rClick({
+$('#navigation-folders ul#files li.folder').rClick({
 
 	id: 'rClick-navigation-folders-li-folder',
 
@@ -442,7 +442,7 @@ $('#navigation-folders li.folder').rClick({
 	}
 });
 
-$('#navigation-folders li.file').rClick({
+$('#navigation-folders ul#files li.file').rClick({
 
 	id: 'rClick-navigation-folders-li-file',
 
@@ -510,7 +510,7 @@ $('#navigation-folders li.file').rClick({
 	}
 });
 
-$('#navigation-folders').rClick({
+$('#navigation-folders ul#files').rClick({
 
 	id: 'rClick-navigation-folders',
 
@@ -784,4 +784,11 @@ $(document).ready(function(){
 		$('#navigation-folders > ul:not(#bar-navigation)').hide();
 		$('#navigation-folders ul#' + $(this).attr('for')).show();
 	});
+});
+
+$('#bar-navigation li[for="chat"]').click(function(){
+	$(this).find('.notify').hide().text('0');
+	setTimeout(function(){
+		$('#navigation-folders ul#chat .messages').scrollTop( $('#navigation-folders ul#chat .messages').prop('scrollHeight') );
+	}, 50);
 });

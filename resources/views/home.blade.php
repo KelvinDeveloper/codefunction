@@ -24,7 +24,7 @@
 
 	<ul id="bar-navigation">
 		<li for="files" class="tooltipped active" data-tooltip="Folders and Files" data-position="top"><i class="material-icons">folder_open</i></li>
-		<li for="chat" class="tooltipped" data-tooltip="Chat" data-position="top"><i class="material-icons">chat</i></li>
+		<li for="chat" class="tooltipped" data-tooltip="Chat" data-position="top"><i class="material-icons">chat</i> <span class="notify">0</span></li>
 	</ul>
 </div>
 

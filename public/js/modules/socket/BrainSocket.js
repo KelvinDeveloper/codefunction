@@ -11,11 +11,17 @@ function Chat() {
 
 			this.html( '', data.message )
 		}
+
+		if ( $('#chat:visible').length == 0 ) {
+			var quant = parseInt( $('#bar-navigation .notify').text() ) + 1;
+			$('#bar-navigation .notify').text( ( quant > 8 ) ? '+9' : quant ).show();
+		}
 	}
 
 	this.html = function(_class, data) {
 
 		$('#chat > .messages').append('<li class="' + _class + '"> <span>' + data + '</span> </li>');
+		$('#navigation-folders ul#chat .messages').scrollTop( $('#navigation-folders ul#chat .messages').prop('scrollHeight') );
 	}
 }
 
@@ -103,6 +109,7 @@ $('#chat textarea').keyup(function(e){
 	if ( e.keyCode == 13 ) {
 
 		Chat.html('me', $(this).val() );
+		$('#navigation-folders ul#chat .messages').scrollTop( $('#navigation-folders ul#chat .messages').prop('scrollHeight') );
 		app.BrainSocket.message('chat.send', {
 		  message: $(this).val(),
 		  hash: Hash,

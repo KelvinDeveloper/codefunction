@@ -286,6 +286,19 @@ ul.menu-top {
 				display: inline-block;
 				padding: 5px 10px;
 				cursor: pointer;
+
+				span.notify {
+					background-color: @PomegranateColor;
+					color: #fff;
+					display: none;
+					float: right;
+					font-size: 12px;
+					height: 20px;
+					line-height: 12px;
+					padding: 3px 5px;
+					text-align: center;
+					width: 26px;
+				}
 			}
 
 			li:hover, li.active {
@@ -299,16 +312,20 @@ ul.menu-top {
 
 		.messages {
 			height: 82%;
-
+			overflow: auto;
 			li {
 
 				width: 100%;
 				padding: 5px;
 				display: inline-block;
+				
 				span {
 					background-color: @SilverColorHover;
 					padding: 5px;
 					float: left;
+					word-wrap: break-word;
+					display: inline-block;
+					max-width: 99%;
 				}
 			}
 
@@ -335,6 +352,7 @@ ul.menu-top {
 
 	ul#files {
 		width: auto;
+		height: 94%;
 		max-width: 1000px;
 		margin: 0;
 
