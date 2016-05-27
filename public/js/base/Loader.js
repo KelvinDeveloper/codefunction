@@ -276,6 +276,11 @@ $(document).ready(function(){
 
 $(document).on('dblclick', '#navigation-folders ul#files li.file', function(){
 
+	if ( $('.tabs li.active').length > 0 ) {
+
+		$('#guard-codes li[data-location="' + $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file') + '"] textarea').val( editor.getValue() );
+	}
+
 	if ( $('.tabs li[data-location="' + $(this).data('location') + '"][data-file="' + $(this).data('file') + '"]').length > 0 ) {
 		
 		$('.tabs li[data-location="' + $(this).data('location') + '"][data-file="' + $(this).data('file') + '"]').click();
