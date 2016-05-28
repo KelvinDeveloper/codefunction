@@ -10,11 +10,11 @@ function Chat() {
 		if ( Hash == data.hash ) {
 
 			this.html( '', data.message )
-		}
 
-		if ( $('#chat:visible').length == 0 ) {
-			var quant = parseInt( $('#bar-navigation .notify').text() ) + 1;
-			$('#bar-navigation .notify').text( ( quant > 8 ) ? '+9' : quant ).show();
+			if ( $('#chat:visible').length == 0 ) {
+				var quant = parseInt( $('#bar-navigation .notify').text() ) + 1;
+				$('#bar-navigation .notify').text( ( quant > 8 ) ? '+9' : quant ).show();
+			}
 		}
 	}
 
@@ -25,7 +25,44 @@ function Chat() {
 	}
 }
 
-var Chat = new Chat();
+function Sync() {
+
+	this.receive = function(code) {
+
+		var Inative = '';
+
+		if ( Token == code.token ) {
+
+			return false;
+		}
+
+		if ( Hash == code.hash ) {
+
+			if ( $('.tabs li.active[data-location="' + code.location + '"][data-file="' + code.file + '"]').length > 0 ) {
+
+				editor.getDoc().setValue( code.code );
+			}
+
+			else if ( $('#guard-codes li[data-location="' + code.location + '/' + code.file + '"]').length > 0 ) {
+
+				$('#guard-codes li[data-location="' + code.location + '/' + code.file + '"] textarea').val( code.code );
+			} else {
+
+				$('#guard-codes').prepend('<li data-location="' + code.location + '/' + code.file + '"> <textarea>' + code.code + '</textarea> </li>');
+			}
+
+			$('.CodeMirror').addClass('inative');
+
+			clearInterval(Inative);
+			Inative = setTimeout(function(){
+				$('.CodeMirror').removeClass('inative');				
+			}, 3000);
+		}
+	}
+}
+
+var Chat = new Chat(),
+	Sync = new Sync();
 
 function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 	this.connection = WebSocketConnection;
@@ -60,6 +97,10 @@ function BrainSocket(WebSocketConnection,BrainSocketPubSub){
 
 			case 'chat.send':
 				Chat.receive(object.client.data);
+				break;
+
+			case 'sync.send':
+				Sync.receive(object.client.data);
 				break;
 		}
 	}

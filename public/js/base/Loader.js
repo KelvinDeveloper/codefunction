@@ -626,7 +626,17 @@ $(document).keyup(function(e){
 
 $('.CodeMirror').keydown(function(e){
 
-	if ( '9,20,16,17,18,2,91,8,121,120,119,118,123,122,37,39,40,38'.indexOf(e.keyCode) < 0 && e.keyCode !== undefined ) {
+	if ( $(this).hasClass('inative') == true ) {
+
+		if ( $('#isInative').length < 1 ) {
+
+			Materialize.toast('<span id="isInative">A user is typing . Wait...</span>', 4000);
+		}
+
+		return false;
+	}
+
+	if ( '9,20,16,17,18,2,91,121,120,119,118,123,122,37,39,40,38'.indexOf(e.keyCode) < 0 && e.keyCode !== undefined ) {
 
 		if ( ( e.ctrlKey === true && e.keyCode == 83 ) ) {
 
@@ -643,6 +653,17 @@ $('.CodeMirror').keydown(function(e){
 
 		$('.tabs li.active').addClass('pendent-save');
 	}
+});
+
+$('.CodeMirror').keyup(function(e){
+
+	app.BrainSocket.message('sync.send', {
+	  code: editor.getValue(),
+	  file: $('.tabs li.active').data('file'),
+	  location: $('.tabs li.active').data('location'),
+	  hash: Hash,
+	  token: Token
+	});
 });
 
 $(document).click(function(){

@@ -24,3 +24,7 @@ Event::listen('generic.event',function($client_data){
 Event::listen('chat.send',function($client_data){
     return BrainSocket::message('chat.send',array('message'=>'A message from a generic event fired in Laravel!'));
 });
+
+Event::listen('sync.send',function($client_data){
+    return BrainSocket::message('chat.send',array('message'=>'A message from a generic event fired in Laravel!'));
+});
