@@ -35,10 +35,6 @@
 	<li class="save tooltipped" data-tooltip="Save (CTRL + S)">
 		<i class="material-icons">save</i>
 	</li>
-
-	<li class="refresh tooltipped" data-tooltip="Refresh">
-		<i class="material-icons">refresh</i>
-	</li>
 <!-- 
 	<li class="tooltipped git" data-tooltip="Clone repository">
 		<i class="material-icons">build</i>
