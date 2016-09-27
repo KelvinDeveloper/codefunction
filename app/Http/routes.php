@@ -59,6 +59,12 @@ $app->get('/{hash}', function ( $hash ) use ($app) {
 
 	$folder = $_SERVER['DOCUMENT_ROOT'] . '/scripts/' . $hash . '/';
 
+	if (! file_exists( $_SERVER['DOCUMENT_ROOT'] . '/scripts/' ) ) {
+
+		mkdir( $_SERVER['DOCUMENT_ROOT'] . '/scripts/' );
+		chmod( $_SERVER['DOCUMENT_ROOT'] . '/scripts/', 0777 );		
+	}
+
 	if (! file_exists( $folder ) ) {
 
 		mkdir( $folder );
