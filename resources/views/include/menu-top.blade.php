@@ -1,7 +1,7 @@
 <ul class="menu-top">
 
 	<span class="logo">
-		<\cf>
+		<\codeFunction()>
 	</span>
 
 	<li class="user">

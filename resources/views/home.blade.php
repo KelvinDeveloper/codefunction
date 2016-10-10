@@ -11,7 +11,7 @@
 
 <div id="navigation-folders">
 	<ul id="files">
-		<li class="title folder">FOLDER</li>
+		<li class="title folder"><i class="material-icons left">folder_open</i> My Folder</li>
 
 		<ul></ul>
 	</ul>
@@ -39,6 +39,15 @@ const 	Init = '{{ $init }}',
 		Visitor		  = '{{ md5( time() ) }}',
 		User		  = '{{ isset( $_COOKIE['id'] ) ? $_COOKIE['id'] : '' }}',
 		Token         = Math.floor((Math.random()*1000)+1);
+
+$('body, #files').mousedown(function (e) {
+	
+    if ( e.which == 2 ) {
+
+        e.preventDefault();
+        return false;
+    }
+});
 </script>
 
 <script type="text/javascript" src="js/base/Loader-min.js"></script>

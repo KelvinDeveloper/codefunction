@@ -220,6 +220,12 @@ $(window).bind('keydown', function(event) {
 
 $(document).ready(function(){
 
+	$('.tabs').sortable({
+
+		items: '> li',
+		axis: 'x'
+	});
+
 	changeSyntax( DefaultSyntax );
 	changeTheme( DefaultTheme );
 
@@ -315,7 +321,7 @@ $(document).on('mousedown', '.tabs li', function(e){
 });
 
 // rClick
-$('#navigation-folders ul#files li.folder').rClick({
+$('#navigation-folders ul#files li.folder:not(.title)').rClick({
 
 	id: 'rClick-navigation-folders-li-folder',
 

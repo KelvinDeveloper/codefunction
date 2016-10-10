@@ -7,7 +7,7 @@
 @import '../plugins/rClick.css';
 
 body {
-	background-color: @PomegranateColor;
+	background-color: @BelizeHoleColor;
 	color: #333;
 	font-family: @DefaultFont;
 	overflow: hidden;
@@ -48,7 +48,7 @@ body {
 
 	a.modal-close {
 		float: right;
-		color: @PomegranateColor;
+		color: @BelizeHoleColor;
 		padding: 5px;
 
 		/*i {*/
@@ -95,29 +95,35 @@ ul.menu-top {
 
 	padding: 0;
 	margin: 0;
-	height: 50px;
-	line-height: 50px;
+	height: 30px;
+	line-height: 30px;
 	color: #fff;
 	overflow: hidden;
 
 	.logo {
 		color: #fff;
-		font-size: 36px;
+		font-size: 22px;
 		font-weight: 300;
 		padding: 5px;
+		font-family: Terminal, monospace;
+		cursor: default;
 	}
 
 	.url input {
 		width: 230px;
+		height: 30px;
+		display: table;
+		margin-top: -5px;
 	}
 
 	.user {
 
 		background-image: url('/img/ico/person.svg');
 	    height: 100%;
-	    width: 50px;
+	    width: 30px;
 	    background-repeat: no-repeat;
 	    background-position: center;
+	    background-size: 100%;
 	}
 
 	a {
@@ -128,15 +134,15 @@ ul.menu-top {
 
 		display: inline-block;
 		float: right;
-		line-height: 50px;
+		line-height: 30px;
 		padding: 5px 10px;
 		color: #fff;
-		border: solid 1px @PomegranateColorHover;
+		border: solid 1px @BelizeHoleColorHover;
 		border-right: none;
 		cursor: pointer;
 
 		i {
-			font-size: 36px;
+			font-size: 22px;
 		}
 	}
 
@@ -145,13 +151,13 @@ ul.menu-top {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 70%;
-		height: 50px;
-		width: 50px;
+		height: 30px;
+		width: 30px;
 		color: transparent;
 	}
 
 	> li:hover {
-		background-color: @PomegranateColorHover;
+		background-color: @BelizeHoleColorHover;
 	}
 
 	ul {
@@ -161,7 +167,7 @@ ul.menu-top {
 		width: 300px;
 		z-index: 100;
 		display: none;
-		box-shadow: 2px 3px 5px 0px #666;
+		box-shadow: 2px 3px 5px 0px #222;
 
 		li {
 
@@ -171,7 +177,7 @@ ul.menu-top {
 			
 			span {
 
-				color: @PomegranateColor;
+				color: @BelizeHoleColor;
 				float: right;
 				font-weight: bold;
 				text-transform: uppercase;
@@ -191,6 +197,7 @@ ul.menu-top {
 .block-selection.login {
 
 	/*height: 195px;*/
+	padding: 5px;
 
 	li {
 		border: none;
@@ -211,7 +218,7 @@ ul.menu-top {
 	z-index: 10;
 	width: auto;
 	display: none;
-	box-shadow: 2px 3px 5px 0px #666;
+	box-shadow: 2px 3px 5px 0px #222;
 
 	.search {
 
@@ -225,10 +232,10 @@ ul.menu-top {
 		li {
 			border-bottom: solid 2px @SilverColor;
 			background-color: @SilverColorHover;
-			color: @PomegranateColor;
+			color: @BelizeHoleColor;
 			width: 200px;
 			float: left;
-			border-right: solid 2px @PomegranateColor;
+			border-right: solid 2px @BelizeHoleColor;
 			text-transform: uppercase;
 			text-align: center;
 			font-weight: bold;
@@ -239,7 +246,7 @@ ul.menu-top {
 
 		width: 200px;	
 		float: left;
-		border-right: solid 2px @PomegranateColor;
+		border-right: solid 2px @BelizeHoleColor;
 		height: 300px;
 		overflow: auto;	
 
@@ -268,7 +275,7 @@ ul.menu-top {
 	display: inline-block;
 	position: absolute;
 	left: 0;
-	top: 81px;
+	top: 61px;
 	background-color: #333;
 	overflow: auto;
 
@@ -288,7 +295,7 @@ ul.menu-top {
 				cursor: pointer;
 
 				span.notify {
-					background-color: @PomegranateColor;
+					background-color: @BelizeHoleColor;
 					color: #fff;
 					display: none;
 					float: right;
@@ -330,7 +337,7 @@ ul.menu-top {
 			}
 
 			li.me span {
-				background-color: @PomegranateColor;
+				background-color: @BelizeHoleColor;
 				color: #fff;
 				float: right;
 			}
@@ -342,6 +349,7 @@ ul.menu-top {
 			position: absolute;
 			bottom: 50px;
 			height: 70px;
+			resize: none;
 		}
 	}
 
@@ -388,7 +396,7 @@ ul.menu-top {
 		}
 
 		li.rCliked {
-			background-color: @PomegranateColor;
+			background-color: @BelizeHoleColor;
 		}
 
 		ul ul {
@@ -402,6 +410,7 @@ ul.menu-top {
 		li.title {
 			font-weight: bold;
 			color: @SilverColor;
+			padding-left: 3px;
 		}
 
 		li {
@@ -415,9 +424,9 @@ ul.menu-top {
 
 	height: 31px;
 	width: 100%;
-	display: inline-block;
+	position: relative;
+	overflow: hidden;
 	background-color: #333;
-	box-shadow: 0 0 5px #222;
 	border: solid 2px #222;
 	color: @SilverColorHover;
 
@@ -430,9 +439,10 @@ ul.menu-top {
 		height: 30px;
 		line-height: 30px;
 		position: relative;
-		border-radius: 0 10px 0 0;
+		border-radius: 0 5px 0 0;
 		margin-left: -3px;
 		cursor: default;
+		background-color: #222;
 
 		i {
 			font-size: 16px;
@@ -447,7 +457,7 @@ ul.menu-top {
 		}
 
 		i:nth-child(2) {
-			color: #900;
+			color: @PomegranateColor;
 			position: absolute;
 			top: 7px;
 			right: 5px;
