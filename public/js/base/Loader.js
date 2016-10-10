@@ -182,6 +182,7 @@ $('.save').click(function(e){
 		},
 		Success: function() {
 
+			$('#guard-codes [data-location="' + $('.tabs li.active').data('location') + '/' + $('.tabs li.active').data('file') + '"] textarea').val( editor.getValue() );
 			$('.tabs li.active').removeClass('pendent-save');
 		}
 	});
