@@ -82,6 +82,11 @@ function FormField( Array, Table ) {
 			Return += '<input class="' + Class + '" ' + Attributes + '>';
 			break;
 
+		case 'custom':
+			Class += ' autocomplete';
+			Return += '<div class="' + Class + '" ' + Attributes + '>' + Array.Content + '</div>';
+			break;
+
 		case 'password':
 			Attributes += ' type="password"';
 		default:
@@ -232,6 +237,12 @@ function FormMask( Array ) {
 				if(typeof Array.Config.click == 'function' ) {
 					$('#form-' + Array.Target + ' [name="' + Array.Field + '"]').click(function(){
 						Array.Config.click( $(this), Array );
+					});
+				}
+
+				if(typeof Array.Config.change == 'function' ) {
+					$('#form-' + Array.Target + ' [name="' + Array.Field + '"]').change(function(){
+						Array.Config.change( $(this), Array );
 					});
 				}
 				break;
@@ -579,7 +590,7 @@ function Post(  This ) {
 	}, false);
 }
 
-$(document).on('submit', 'form', function() {
+$(document).on('submit', 'form:not(.stopFunction)', function() {
 
 	Post( $(this) );
 	return false;
