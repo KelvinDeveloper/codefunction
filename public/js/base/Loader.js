@@ -281,7 +281,7 @@ $(document).ready(function(){
 
 });
 
-$(document).on('dblclick', '#navigation-folders ul#files li.file', function(){
+$(document).on('click', '#navigation-folders ul#files li.file', function(){
 
 	if ( $('.tabs li.active').length > 0 ) {
 
